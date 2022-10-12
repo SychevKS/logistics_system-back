@@ -7,4 +7,8 @@
     <RootNamespace>logistics_system_back</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
