@@ -12,6 +12,8 @@ builder.Services.AddDbContext<ApplicationContext>
     (options => options.UseNpgsql(connection));
 
 builder.Services.AddTransient<IDivisionService, DivisionService>();
+builder.Services.AddTransient<IPartnerService, PartnerService>();
+builder.Services.AddTransient<IWorkerService, WorkerService>();
 
 
 var app = builder.Build();
