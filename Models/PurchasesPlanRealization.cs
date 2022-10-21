@@ -3,17 +3,17 @@
     /// <summary>
     /// Класс выполения плана закупок
     /// </summary>
-    public class PlanPurchasesRealization
+    public class PurchasesPlanRealization
     {
         public Guid Id { get; set; }
         public DateTime Date { get; set; }
         public int Quantity { get; set; }
-        public Guid PlanPurchasesId { get; set; }
-        public PlanPurchases? PlanPurchases { get; set; }
+        public Guid PurchasesPlanId { get; set; }
+        public PurchasesPlan PurchasesPlan { get; set; }
         public Guid ProductId { get; set; }
-        public Product? Product { get; set; }
+        public Product Product { get; set; }
         public Guid DivisionId { get; set; }
-        public Division? Division { get; set; }
+        public Division Division { get; set; }
 
     }
 }

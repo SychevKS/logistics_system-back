@@ -8,8 +8,8 @@
         {
             ID = product.Id;
             Name = product.Name;
-            Unit = product.Unit?.Name;
-            Price = product.PriceList?.Price;
+            Unit = product.Unit.Name;
+            Price = product.PriceList.Price;
         }
 
         public Guid ID { get; set; }

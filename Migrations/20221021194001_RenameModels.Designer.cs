@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using logistics_system_back;
@@ -11,9 +12,10 @@ using logistics_system_back;
 namespace logistics_system_back.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20221021194001_RenameModels")]
+    partial class RenameModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,12 +191,12 @@ namespace logistics_system_back.Migrations
                     b.Property<int>("Month")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("SalesPlanId")
+                    b.Property<Guid>("PlanSalesId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SalesPlanId");
+                    b.HasIndex("PlanSalesId");
 
                     b.ToTable("PurchasesPlans");
                 });
@@ -208,10 +210,13 @@ namespace logistics_system_back.Migrations
                     b.Property<Guid>("DivisionId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("PlanPurchasesId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("PurchasesPlanId")
+                    b.Property<Guid?>("PurchasesPlanId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Quantity")
@@ -240,10 +245,13 @@ namespace logistics_system_back.Migrations
                     b.Property<Guid>("DivisionId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("PlanPurchasesId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("PurchasesPlanId")
+                    b.Property<Guid?>("PurchasesPlanId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Quantity")
@@ -327,13 +335,16 @@ namespace logistics_system_back.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("PlanSalesId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("SalesPlanId")
+                    b.Property<Guid?>("SalesPlanId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -354,13 +365,16 @@ namespace logistics_system_back.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid>("PlanSalesId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("SalesPlanId")
+                    b.Property<Guid?>("SalesPlanId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -415,7 +429,7 @@ namespace logistics_system_back.Migrations
                         .IsRequired();
 
                     b.HasOne("logistics_system_back.Models.Invoice", "Invoice")
-                        .WithOne("InOuts")
+                        .WithOne("InOut")
                         .HasForeignKey("logistics_system_back.Models.InOutInvoice", "InvoiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -514,13 +528,13 @@ namespace logistics_system_back.Migrations
 
             modelBuilder.Entity("logistics_system_back.Models.PurchasesPlan", b =>
                 {
-                    b.HasOne("logistics_system_back.Models.SalesPlan", "SalesPlan")
+                    b.HasOne("logistics_system_back.Models.SalesPlan", "PlanSales")
                         .WithMany()
-                        .HasForeignKey("SalesPlanId")
+                        .HasForeignKey("PlanSalesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("SalesPlan");
+                    b.Navigation("PlanSales");
                 });
 
             modelBuilder.Entity("logistics_system_back.Models.PurchasesPlanPosition", b =>
@@ -539,9 +553,7 @@ namespace logistics_system_back.Migrations
 
                     b.HasOne("logistics_system_back.Models.PurchasesPlan", "PurchasesPlan")
                         .WithMany("PurchasesPlanPositions")
-                        .HasForeignKey("PurchasesPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PurchasesPlanId");
 
                     b.Navigation("Division");
 
@@ -566,9 +578,7 @@ namespace logistics_system_back.Migrations
 
                     b.HasOne("logistics_system_back.Models.PurchasesPlan", "PurchasesPlan")
                         .WithMany("PurchasesPlanRealizations")
-                        .HasForeignKey("PurchasesPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PurchasesPlanId");
 
                     b.Navigation("Division");
 
@@ -633,9 +643,7 @@ namespace logistics_system_back.Migrations
 
                     b.HasOne("logistics_system_back.Models.SalesPlan", "SalesPlan")
                         .WithMany("PlanSalesPositions")
-                        .HasForeignKey("SalesPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SalesPlanId");
 
                     b.Navigation("Product");
 
@@ -652,9 +660,7 @@ namespace logistics_system_back.Migrations
 
                     b.HasOne("logistics_system_back.Models.SalesPlan", "SalesPlan")
                         .WithMany("RealizationSalesPlans")
-                        .HasForeignKey("SalesPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SalesPlanId");
 
                     b.Navigation("Product");
 
@@ -680,7 +686,7 @@ namespace logistics_system_back.Migrations
 
             modelBuilder.Entity("logistics_system_back.Models.Invoice", b =>
                 {
-                    b.Navigation("InOuts");
+                    b.Navigation("InOut");
 
                     b.Navigation("InvoicePositions");
 

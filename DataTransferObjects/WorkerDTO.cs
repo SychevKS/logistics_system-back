@@ -10,7 +10,6 @@
             Surname = worker.Surname;
             Name = worker.Name;
             BirthDate = worker.BirthDate;
-
         }
 
         public Guid Id { get; set; }

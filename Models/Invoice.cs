@@ -12,7 +12,7 @@
         public Worker Worker { get; set; }
         public PurchaseInvoice? Purchase { get; set; }
         public SalesInvoice? Sales { get; set; }
-        public InOutInvoice? InOut { get; set; }
+        public InOutInvoice? InOuts { get; set; }
         public IEnumerable<InvoicePosition>? InvoicePositions { get; set; }
 
     }

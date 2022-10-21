@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using logistics_system_back;
@@ -11,9 +12,10 @@ using logistics_system_back;
 namespace logistics_system_back.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20221021195121_RenameIdModels")]
+    partial class RenameIdModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -415,7 +417,7 @@ namespace logistics_system_back.Migrations
                         .IsRequired();
 
                     b.HasOne("logistics_system_back.Models.Invoice", "Invoice")
-                        .WithOne("InOuts")
+                        .WithOne("InOut")
                         .HasForeignKey("logistics_system_back.Models.InOutInvoice", "InvoiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -680,7 +682,7 @@ namespace logistics_system_back.Migrations
 
             modelBuilder.Entity("logistics_system_back.Models.Invoice", b =>
                 {
-                    b.Navigation("InOuts");
+                    b.Navigation("InOut");
 
                     b.Navigation("InvoicePositions");
 

@@ -21,12 +21,13 @@
         public DbSet<PurchaseInvoice> PurchaseInvoices { get; set; } = null!;
         public DbSet<SalesInvoice> SalesInvoices { get; set; } = null!;
         public DbSet<InOutInvoice> InOutInvoices { get; set; } = null!;
-        public DbSet<PlanPurchases> PlanPurchases { get; set; } = null!;
-        public DbSet<PlanPurchasesPosition> PlanPurchasesPositions { get; set; } = null!;
-        public DbSet<PlanPurchasesRealization> PlanPurchasesRealization { get; set; } = null!;
-        public DbSet<PlanSales> PlanSales { get; set; } = null!;
-        public DbSet<PlanSalesPosition> PlanSalesPositions { get; set; } = null!;
-        public DbSet<PlanSalesRealization> PlanSalesRealization { get; set; } = null!;
+        public DbSet<PurchasesPlan> PurchasesPlans { get; set; } = null!;
+        public DbSet<PurchasesPlanPosition> PurchasesPlanPositions { get; set; } = null!;
+        public DbSet<PurchasesPlanRealization> PurchasesPlanRealizations { get; set; } = null!;
+        public DbSet<SalesPlan> SalesPlans { get; set; } = null!;
+        public DbSet<SalesPlanPosition> SalesPlanPositions { get; set; } = null!;
+        public DbSet<SalesPlanRealization> SalesPlanRealizations { get; set; } = null!;
+        public DbSet<Remaining> Remainings { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

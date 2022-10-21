@@ -3,11 +3,11 @@
     /// <summary>
     /// Класс план продаж
     /// </summary>
-    public class PlanSales
+    public class SalesPlan
     {
         public Guid Id { get; set; }
         public int Year { get; set; }
-        public IEnumerable<PlanSalesPosition>? PlanSalesPositions { get; set; }
-        public IEnumerable<PlanSalesRealization>? RealizationSalesPlans { get; set; }
+        public IEnumerable<SalesPlanPosition>? PlanSalesPositions { get; set; }
+        public IEnumerable<SalesPlanRealization>? RealizationSalesPlans { get; set; }
     }
 }

@@ -13,8 +13,8 @@
         public IEnumerable<InOutInvoice>? InInvoices { get; set;}
         public IEnumerable<InOutInvoice>? OutInvoices { get; set; }
         public IEnumerable<Remaining>? Remainings { get; set; }
-        public IEnumerable<PlanPurchasesPosition>? PlanPurchasesPisitions { get; set; }
-        public IEnumerable<PlanPurchasesRealization>? PlanPurchasesRealizations { get; set; }
+        public IEnumerable<PurchasesPlanPosition>? PurchasesPlanPositions { get; set; }
+        public IEnumerable<PurchasesPlanRealization>? PurchasesPlanRealizations { get; set; }
 
 
     }
