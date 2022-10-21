@@ -44,7 +44,6 @@
                 .WithMany(t => t.InInvoices)
                 .HasForeignKey(t => t.InDivisionId);
 
-
             modelBuilder.Entity<InOutInvoice>()
                 .HasOne(g => g.OutDivision)
                 .WithMany(t => t.OutInvoices)
