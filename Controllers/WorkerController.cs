@@ -4,22 +4,22 @@
     using Abstractions;
 
     /// <summary>
-    /// Контролер контрагентов
+    /// Контролер работников
     /// </summary>
     [ApiController]
     [Route("api/")]
-    public class PartnerController : Controller
+    public class WorkerController : Controller
     {
-        private readonly IPartnerService _partnerService;
-        public PartnerController(IPartnerService partnerService)
+        private readonly IWorkerService _workerService;
+        public WorkerController(IWorkerService workerService)
         {
-            _partnerService = partnerService;
+            _workerService = workerService;
         }
 
-        [Route("partners")]
+        [Route("workers")]
         public IActionResult GetPartners()
         {
-            return Ok(_partnerService.GetPartners());
+            return Ok(_workerService.GetWorkers());
         }
 
     }
