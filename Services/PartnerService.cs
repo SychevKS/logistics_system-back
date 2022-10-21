@@ -1,7 +1,7 @@
 ﻿namespace logistics_system_back.Services
 {
     using Abstractions;
-    using Models;
+    using DataTransferObjects;
 
     public class PartnerService : IPartnerService
     {
@@ -13,9 +13,9 @@
         }
 
         /// <inheritdoc/>
-        public IEnumerable<Partner> GetPartners()
+        public IEnumerable<PartnerDTO> GetPartners()
         {
-            return _db.Partners;
+            return _db.Partners.Select(p => new PartnerDTO(p));
         }
     }
 }

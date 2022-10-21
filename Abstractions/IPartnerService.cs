@@ -1,6 +1,6 @@
 ﻿namespace logistics_system_back.Abstractions
 {
-    using Models;
+    using DataTransferObjects;
 
     /// <summary>
     /// Интерфейс сервиса работы с партнерами
@@ -11,7 +11,7 @@
         /// Получение списка партнеров
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Partner> GetPartners();
+        IEnumerable<PartnerDTO> GetPartners();
 
     }
 }

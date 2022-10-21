@@ -1,6 +1,6 @@
 ﻿namespace logistics_system_back.Abstractions
 {
-    using Models;
+    using DataTransferObjects;
 
     /// <summary>
     /// Интерфейс сервиса работы с работниками
@@ -11,7 +11,7 @@
         /// Получение списка работников
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Worker> GetWorkers();
+        IEnumerable<WorkerDTO> GetWorkers();
 
     }
 }

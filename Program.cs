@@ -17,6 +17,8 @@ builder.Services.AddTransient<IDivisionService, DivisionService>();
 builder.Services.AddTransient<IPartnerService, PartnerService>();
 builder.Services.AddTransient<IWorkerService, WorkerService>();
 builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<IPurchaseInvoiceService, PurchaseInvoiceService>();
+builder.Services.AddTransient<ISalesInvoiceService, SalesInvoiceService>();
 
 
 var app = builder.Build();

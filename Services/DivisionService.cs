@@ -1,7 +1,7 @@
 ﻿namespace logistics_system_back.Services
 {
     using Abstractions;
-    using Models;
+    using DataTransferObjects;
 
     public class DivisionService : IDivisionService
     {
@@ -13,9 +13,9 @@
         }
 
         /// <inheritdoc/>
-        public IEnumerable<Division> GetDivisions()
+        public IEnumerable<DivisionDTO> GetDivisions()
         {
-            return _db.Divisions;
+            return _db.Divisions.Select(x => new DivisionDTO(x));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace logistics_system_back.Abstractions
 {
-    using Models;
+    using DataTransferObjects;
 
     /// <summary>
     /// Интерфейс сервиса работы с подразделениями
@@ -11,7 +11,7 @@
         /// Получение списка подразделений
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Division> GetDivisions();
+        IEnumerable<DivisionDTO> GetDivisions();
 
     }
 }

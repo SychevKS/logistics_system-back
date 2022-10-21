@@ -1,7 +1,7 @@
 ﻿namespace logistics_system_back.Services
 {
     using Abstractions;
-    using Models;
+    using DataTransferObjects;
 
     public class WorkerService : IWorkerService
     {
@@ -13,9 +13,9 @@
         }
 
         /// <inheritdoc/>
-        public IEnumerable<Worker> GetWorkers()
+        public IEnumerable<WorkerDTO> GetWorkers()
         {
-            return _db.Workers;
+            return _db.Workers.Select(p => new WorkerDTO(p));
         }
     }
 }
