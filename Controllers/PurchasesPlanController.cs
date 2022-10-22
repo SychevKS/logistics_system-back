@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Abstractions;
+    using Models;
 
     /// <summary>
     /// Контролер планов закупок
@@ -20,6 +21,12 @@
         public IActionResult GetPurchasesPlans(Guid id)
         {
             return Ok(_purchasesPlanService.GetPurchasesPlans(id));
+        }
+
+        [HttpPost("add-purchases-plan")]
+        public void AddPurchasesPlan([FromQuery] PurchasesPlan purchasesPlan)
+        {
+            _purchasesPlanService.AddPurchasesPlan(purchasesPlan);
         }
 
     }

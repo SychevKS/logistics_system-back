@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Abstractions;
+    using Models;
 
     /// <summary>
     /// Контролер планов продаж
@@ -20,6 +21,12 @@
         public IActionResult GetSalesPlans()
         {
             return Ok(_salesPlanService.GetSalesPlans());
+        }
+
+        [HttpPost("add-sales-plan")]
+        public void AddUnit([FromQuery] SalesPlan salesPlan)
+        {
+            _salesPlanService.AddSelesPlan(salesPlan);
         }
 
     }

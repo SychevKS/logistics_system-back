@@ -1,6 +1,7 @@
 ﻿namespace logistics_system_back.Abstractions
 {
     using DataTransferObjects;
+    using Models;
 
     /// <summary>
     /// Интерфейс сервиса работы с планами закупок
@@ -13,6 +14,10 @@
         /// <returns></returns>
         IEnumerable<PurchasesPlanDTO> GetPurchasesPlans(Guid SalesPlanId);
 
-
+        /// <summary>
+        /// Добавление плана закупок
+        /// </summary>
+        /// <param name="purchasesPlan"></param>
+        void AddPurchasesPlan(PurchasesPlan purchasesPlan);
     }
 }

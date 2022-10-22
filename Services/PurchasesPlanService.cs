@@ -2,6 +2,7 @@
 {
     using Abstractions;
     using DataTransferObjects;
+    using Models;
     using Microsoft.EntityFrameworkCore;
 
     public class PurchasesPlanService : IPurchasesPlanService
@@ -20,6 +21,12 @@
                 .Include(x => x.SalesPlan)
                 .Where(x => x.SalesPlan.Id == SalesPlanId)
                 .Select(x => new PurchasesPlanDTO(x));
+        }
+
+        /// <inheritdoc/>
+        public void AddPurchasesPlan(PurchasesPlan purchasesPlan)
+        {
+
         }
     }
 

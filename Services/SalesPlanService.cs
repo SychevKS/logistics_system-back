@@ -2,6 +2,7 @@
 {
     using Abstractions;
     using DataTransferObjects;
+    using Models;
     using Microsoft.EntityFrameworkCore;
 
     public class SalesPlanService : ISalesPlanService
@@ -17,6 +18,12 @@
         public IEnumerable<SalesPlanDTO> GetSalesPlans()
         {
             return _db.SalesPlans.Select(x => new SalesPlanDTO(x));
+        }
+
+        public void AddSelesPlan(SalesPlan salesPlan)
+        {
+            _db.SalesPlans.Add(salesPlan);
+            _db.SaveChanges();
         }
     }
 
