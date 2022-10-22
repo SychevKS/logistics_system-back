@@ -15,7 +15,6 @@
         public DbSet<Worker> Workers { get; set; } = null!;
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<Unit> Units { get; set; } = null!;
-        public DbSet<PriceList> PriceList { get; set; } = null!;
         public DbSet<Invoice> Invoices { get; set; } = null!;
         public DbSet<InvoicePosition> InvoicePositions { get; set; } = null!;
         public DbSet<PurchaseInvoice> PurchaseInvoices { get; set; } = null!;
@@ -49,9 +48,6 @@
                 .HasOne(g => g.OutDivision)
                 .WithMany(t => t.OutInvoices)
                 .HasForeignKey(t => t.OutDivisionId);
-
-            modelBuilder.Entity<PriceList>()
-                .HasKey(l => l.ProductId);
 
         }
     }

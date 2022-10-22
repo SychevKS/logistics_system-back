@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Abstractions;
+    using Models;
 
     /// <summary>
     /// Контролер товаров
@@ -20,6 +21,12 @@
         public IActionResult GetProducts()
         {
             return Ok(_productService.GetProducts());
+        }
+
+        [HttpPost("add-product")]
+        public void AddProduct([FromQuery] Product product)
+        {
+            _productService.AddProduct(product);
         }
 
     }

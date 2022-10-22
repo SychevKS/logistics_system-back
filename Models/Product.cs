@@ -7,9 +7,9 @@
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }
+        public int Price { get; set; }
         public Guid UnitId { get; set; }
-        public Unit Unit { get; set; }
-        public PriceList PriceList { get; set; }
+        public Unit? Unit { get; set; }
         public IEnumerable<InvoicePosition>? InvoicePositions { get; set; }
         public IEnumerable<Remaining>? Remainings { get; set; }
         public IEnumerable<SalesPlanPosition>? SalesPlanPositions { get; set; }

@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Abstractions;
+    using Models;
 
     /// <summary>
     /// Контролер приходных
@@ -20,6 +21,12 @@
         public IActionResult GetSalesInvoices()
         {
             return Ok(_salesInvoiceController.GetSalesInvoices());
+        }
+
+        [HttpPost("add-sales-invoice")]
+        public void AddSalesInvoice([FromQuery] Invoice invoice, [FromQuery] SalesInvoice salesInvoice)
+        {
+            _salesInvoiceController.AddSalesInvoice(invoice, salesInvoice);
         }
 
     }

@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Abstractions;
+    using Models;
 
     /// <summary>
     /// Контролер контрагентов
@@ -20,6 +21,12 @@
         public IActionResult GetPartners()
         {
             return Ok(_partnerService.GetPartners());
+        }
+
+        [HttpPost("add-partner")]
+        public void AddPartner([FromQuery] Partner partner)
+        {
+            _partnerService.AddPartner(partner);
         }
 
     }

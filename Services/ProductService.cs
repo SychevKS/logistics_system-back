@@ -3,6 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Abstractions;
     using DataTransferObjects;
+    using Models;
 
     public class ProductService : IProductService
     {
@@ -18,9 +19,15 @@
         {
             return _db.Products
                 .Include(p => p.Unit)
-                .Include(p => p.PriceList)
                 .Select(x => new ProductDTO(x));
         }
+
+        /// <inheritdoc/>
+        public void AddProduct(Product product)
+        {
+            _db.Products.Add(product);
+            _db.SaveChanges();
+        }
     }
-    
+
 }

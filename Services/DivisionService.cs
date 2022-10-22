@@ -2,6 +2,7 @@
 {
     using Abstractions;
     using DataTransferObjects;
+    using Models;
 
     public class DivisionService : IDivisionService
     {
@@ -16,6 +17,13 @@
         public IEnumerable<DivisionDTO> GetDivisions()
         {
             return _db.Divisions.Select(x => new DivisionDTO(x));
+        }
+
+        /// <inheritdoc/>
+        public void AddDivision(Division division)
+        {
+            _db.Divisions.Add(division);
+            _db.SaveChanges();
         }
     }
 }

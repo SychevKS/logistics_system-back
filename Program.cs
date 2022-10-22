@@ -21,7 +21,11 @@ builder.Services.AddTransient<IPurchaseInvoiceService, PurchaseInvoiceService>()
 builder.Services.AddTransient<ISalesInvoiceService, SalesInvoiceService>();
 builder.Services.AddTransient<IInOutInvoiceService, InOutInvoiceService>();
 builder.Services.AddTransient<IInvoicePositionService, InvoicePositionService>();
-
+builder.Services.AddTransient<IPurchasesPlanService, PurchasesPlanService>();
+builder.Services.AddTransient<ISalesPlanService, SalesPlanService>();
+builder.Services.AddTransient<ISalesPlanPositionService, SalesPlanPositionService>();
+builder.Services.AddTransient<IPurchasesPlanPositionService, PurchasesPlanPositionService>();
+builder.Services.AddTransient<IUnitService, UnitService>();
 
 var app = builder.Build();
 

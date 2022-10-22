@@ -2,6 +2,7 @@
 {
     using Abstractions;
     using DataTransferObjects;
+    using Models;
 
     public class WorkerService : IWorkerService
     {
@@ -16,6 +17,13 @@
         public IEnumerable<WorkerDTO> GetWorkers()
         {
             return _db.Workers.Select(p => new WorkerDTO(p));
+        }
+
+        /// <inheritdoc/>
+        public void AddWorker(Worker worker)
+        {
+            _db.Workers.Add(worker);
+            _db.SaveChanges();
         }
     }
 }

@@ -3,6 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Abstractions;
     using DataTransferObjects;
+    using Models;
 
     public class InOutInvoiceService : IInOutInvoiceService
     {
@@ -22,6 +23,14 @@
                 .Include(x => x.InDivision)
                 .Include(x => x.OutDivision)
                 .Select(x => new InOutInvoiceDTO(x));
+        }
+
+        /// <inheritdoc/>
+        public void AddInOutInvoice(Invoice invoice, InOutInvoice inOutInvoice)
+        {
+            _db.Invoices.Add(invoice);
+            _db.InOutInvoices.Add(inOutInvoice);
+            _db.SaveChanges();
         }
     }
 

@@ -8,16 +8,20 @@
         {
             Id = purchasesPlanPosition.Id;
             Quantity = purchasesPlanPosition.Quantity;
-            PurchasesPlan = new PurchasesPlanDTO(purchasesPlanPosition.PurchasesPlan);
+            PurchasesPlan = purchasesPlanPosition.PurchasesPlan != null 
+                ? new PurchasesPlanDTO(purchasesPlanPosition.PurchasesPlan)
+                : null;
             Product = new ProductDTO(purchasesPlanPosition.Product);
-            Division = new DivisionDTO(purchasesPlanPosition.Division);
+            Division = purchasesPlanPosition.Division != null 
+                ? new DivisionDTO(purchasesPlanPosition.Division)
+                : null;
         }
 
         public Guid Id { get; set; }
         public int Quantity { get; set; }
-        public PurchasesPlanDTO PurchasesPlan { get; set; }
+        public PurchasesPlanDTO? PurchasesPlan { get; set; }
         public ProductDTO Product { get; set; }
-        public DivisionDTO Division { get; set; }
+        public DivisionDTO? Division { get; set; }
 
     }
 }

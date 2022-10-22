@@ -4,25 +4,25 @@
     using DataTransferObjects;
     using Models;
 
-    public class PartnerService : IPartnerService
+    public class UnitService : IUnitService
     {
         private readonly ApplicationContext _db;
 
-        public PartnerService(ApplicationContext context)
+        public UnitService(ApplicationContext context)
         {
             _db = context;
         }
 
         /// <inheritdoc/>
-        public IEnumerable<PartnerDTO> GetPartners()
+        public IEnumerable<UnitDTO> GetUnits()
         {
-            return _db.Partners.Select(p => new PartnerDTO(p));
+            return _db.Units.Select(u => new UnitDTO(u));
         }
 
         /// <inheritdoc/>
-        public void AddPartner(Partner partner)
+        public void AddUnit(Unit unit)
         {
-            _db.Partners.Add(partner);
+            _db.Units.Add(unit);
             _db.SaveChanges();
         }
     }

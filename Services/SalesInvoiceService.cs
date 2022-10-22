@@ -3,6 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Abstractions;
     using DataTransferObjects;
+    using Models;
 
     public class SalesInvoiceService : ISalesInvoiceService
     {
@@ -22,6 +23,14 @@
                 .Include(x => x.Division)
                 .Include(x => x.Partner)
                 .Select(x => new SalesInvoiceDTO(x));
+        }
+
+        /// <inheritdoc/>
+        public void AddSalesInvoice(Invoice invoice, SalesInvoice salesInvoice)
+        {
+            _db.Invoices.Add(invoice);
+            _db.SalesInvoices.Add(salesInvoice);
+            _db.SaveChanges();
         }
     }
 

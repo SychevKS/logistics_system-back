@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Abstractions;
+    using Models;
 
     /// <summary>
     /// Контролер подразделений
@@ -20,6 +21,12 @@
         public IActionResult GetDivisions()
         {
             return Ok(_divisionService.GetDivisions());
+        }
+
+        [HttpPost("add-division")]
+        public void AddDivision([FromQuery] Division division)
+        {
+            _divisionService.AddDivision(division);
         }
 
     }

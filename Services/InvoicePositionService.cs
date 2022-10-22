@@ -19,8 +19,6 @@
             return _db.InvoicePositions
                 .Include(p => p.Product)
                 .ThenInclude(p => p.Unit)
-                .Include(p => p.Product)
-                .ThenInclude(p => p.PriceList)
                 .Where(p => p.InvoiceId == invoiceId)
                 .Select(p => new InvoicePositionDTO(p));
         }

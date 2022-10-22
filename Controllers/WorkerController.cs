@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Abstractions;
+    using Models;
 
     /// <summary>
     /// Контролер работников
@@ -20,6 +21,12 @@
         public IActionResult GetPartners()
         {
             return Ok(_workerService.GetWorkers());
+        }
+
+        [HttpPost("add-worker")]
+        public void AddWorker([FromQuery] Worker worker)
+        {
+            _workerService.AddWorker(worker);
         }
 
     }

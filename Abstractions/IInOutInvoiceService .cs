@@ -1,6 +1,7 @@
 ﻿namespace logistics_system_back.Abstractions
 {
     using DataTransferObjects;
+    using Models;
 
     /// <summary>
     /// Интерфейс сервиса работы с приходно-расходными
@@ -12,6 +13,12 @@
         /// </summary>
         /// <returns></returns>
         IEnumerable<InOutInvoiceDTO> GetInOutInvoices();
+
+        /// <summary>
+        /// Добавление приходно-расходной
+        /// </summary>
+        /// <returns></returns>
+        void AddInOutInvoice(Invoice invoice, InOutInvoice inOutInvoice);
 
     }
 }
