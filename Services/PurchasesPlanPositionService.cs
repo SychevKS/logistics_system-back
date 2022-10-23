@@ -3,6 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Abstractions;
     using DataTransferObjects;
+    using Models;
 
     public class PurchasesPlanPositionService : IPurchasesPlanPositionService
     {
@@ -21,6 +22,16 @@
                 .ThenInclude(x => x.Unit)
                 .Where(x => x.PurchasesPlan.Id == purchasesPlanId)
                 .Select(x => new PurchasesPlanPositionDTO(x));
+        }
+
+        /// <inheritdoc/>
+        public void AddPositions(PurchasesPlanPosition[] purchasesPlanPositions)
+        {
+            foreach (PurchasesPlanPosition position in purchasesPlanPositions)
+            {
+                _db.PurchasesPlanPositions.Add(position);
+            }
+            _db.SaveChanges();
         }
 
     }

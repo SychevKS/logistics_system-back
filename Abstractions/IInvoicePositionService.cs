@@ -26,5 +26,11 @@
         /// <returns></returns>
         void AddSalesPositions(InvoicePosition[] invoicePositions);
 
+        /// <summary>
+        /// Добавление позиций акта приемки-передачи
+        /// </summary>
+        /// <returns></returns>
+        void AddInOutPositions(InvoicePosition[] invoicePositions);
+
     }
 }

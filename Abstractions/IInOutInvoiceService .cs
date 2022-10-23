@@ -15,6 +15,12 @@
         IEnumerable<InOutInvoiceDTO> GetInOutInvoices();
 
         /// <summary>
+        /// Получение приходно-расходной
+        /// </summary>
+        /// <returns></returns>
+        InOutInvoice GetInOutInvoice(Guid invoiceId);
+
+        /// <summary>
         /// Добавление приходно-расходной
         /// </summary>
         /// <returns></returns>

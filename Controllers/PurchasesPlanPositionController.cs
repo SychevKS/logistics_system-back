@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Abstractions;
+    using Models;
 
     /// <summary>
     /// Контролер позиций плана закупок
@@ -22,6 +23,11 @@
             return Ok(_purchasesPlanPositionService.GetPurchasesPlanPositions(id));
         }
 
+        [HttpPost("add-purchases-plan-positions")]
+        public void AddPositions([FromQuery] PurchasesPlanPosition[] purchasesPlanPositions)
+        {
+            _purchasesPlanPositionService.AddPositions(purchasesPlanPositions);
+        }
 
     }
 }

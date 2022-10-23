@@ -1,12 +1,19 @@
 ﻿namespace logistics_system_back.Abstractions
 {
     using Models;
+    using DataTransferObjects;
 
     /// <summary>
     /// Интерфейс сервиса работы с остатками
     /// </summary>
     public interface IRemainingService
     {
+        /// <summary>
+        /// Получение остатка на подразделении
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<RemainingDTO> GetRemainings(Guid divisionId);
+
         /// <summary>
         /// Добавление записи при приходе товара
         /// </summary>

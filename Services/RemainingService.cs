@@ -3,22 +3,46 @@
     using Abstractions;
     using Microsoft.EntityFrameworkCore;
     using Models;
+    using DataTransferObjects;
     
     public class RemainingService : IRemainingService
     {
         private readonly ApplicationContext _db;
         private readonly IPurchaseInvoiceService _purchaseInvoiceService;
         private readonly ISalesInvoiceService _salesInvoiceService;
+        private readonly IInOutInvoiceService _inOutInvoiceService;
 
         public RemainingService(
             ApplicationContext context, 
             IPurchaseInvoiceService purchaseInvoiceService,
-            ISalesInvoiceService salesInvoiceService
+            ISalesInvoiceService salesInvoiceService,
+            IInOutInvoiceService inOutInvoiceService
             )
         {
             _db = context;
             _purchaseInvoiceService = purchaseInvoiceService;
             _salesInvoiceService = salesInvoiceService;
+            _inOutInvoiceService = inOutInvoiceService;
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<RemainingDTO> GetRemainings(Guid divisionId)
+        {
+            var a = _db.Remainings
+                .Include(x => x.Product)
+                .ThenInclude(x => x.Unit)
+                .Where(x => x.DivisionId == divisionId)
+                .GroupBy(x => x.ProductId)
+                .Select(x => x.OrderByDescending(x => x.Date).First())
+                .Select(x => new RemainingDTO(x));
+
+            return _db.Remainings
+                .Include(x => x.Product)
+                .ThenInclude(x => x.Unit)
+                .Where(x => x.DivisionId == divisionId)
+                .GroupBy(x => x.ProductId)
+                .Select(x => x.OrderByDescending(x => x.Date).First()).ToList()
+                .Select(x => new RemainingDTO(x));
         }
 
         /// <inheritdoc/>
@@ -76,7 +100,45 @@
         /// <inheritdoc/>
         public void AddInOutRemains(InvoicePosition invoicePosition)
         {
+            InOutInvoice inOutInvoice = _inOutInvoiceService
+                .GetInOutInvoice(invoicePosition.InvoiceId);
 
+            Remaining? inLastRemains = _db.Remainings
+                .Where(x => x.DivisionId == inOutInvoice.InDivisionId)
+                .Where(x => x.ProductId == invoicePosition.ProductId)
+                .OrderByDescending(x => x.Date)
+                .FirstOrDefault();
+
+            Remaining outLastRemains = _db.Remainings
+                .Where(x => x.DivisionId == inOutInvoice.OutDivisionId)
+                .Where(x => x.ProductId == invoicePosition.ProductId)
+                .OrderByDescending(x => x.Date)
+                .First();
+
+            inLastRemains = new Remaining
+            {
+                Id = Guid.NewGuid(),
+                Date = DateTime.Now,
+                Quantity = inLastRemains == null ?
+                    invoicePosition.Quantity :
+                    invoicePosition.Quantity + inLastRemains.Quantity,
+                ProductId = invoicePosition.ProductId,
+                DivisionId = inOutInvoice.InDivisionId,
+            };
+
+            outLastRemains = new Remaining
+            {
+                Id = Guid.NewGuid(),
+                Date = DateTime.Now,
+                Quantity = outLastRemains.Quantity - invoicePosition.Quantity,
+                ProductId = invoicePosition.ProductId,
+                DivisionId = inOutInvoice.OutDivisionId,
+            };
+
+            _db.Remainings.Add(inLastRemains);
+            _db.Remainings.Add(outLastRemains);
+            _db.SaveChanges();
         }
+
     }
 }
