@@ -15,6 +15,12 @@
         IEnumerable<PurchaseInvoiceDTO> GetPurchaseInvoices();
 
         /// <summary>
+        /// Получение приходной
+        /// </summary>
+        /// <returns></returns>
+        PurchaseInvoice GetPurchaseInvoice(Guid invoiceId);
+
+        /// <summary>
         /// Добавление приходной
         /// </summary>
         /// <returns></returns>

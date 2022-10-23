@@ -15,6 +15,12 @@
         IEnumerable<PurchasesPlanDTO> GetPurchasesPlans(Guid SalesPlanId);
 
         /// <summary>
+        /// Получение текущего плана закупок
+        /// </summary>
+        /// <returns></returns>
+        PurchasesPlan GetCurrentPurchasesPlan();
+
+        /// <summary>
         /// Добавление плана закупок
         /// </summary>
         /// <param name="purchasesPlan"></param>

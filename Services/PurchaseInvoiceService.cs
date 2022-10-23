@@ -26,6 +26,14 @@
         }
 
         /// <inheritdoc/>
+        public PurchaseInvoice GetPurchaseInvoice(Guid invoiceId)
+        {
+            return _db.PurchaseInvoices
+                .Where(x => x.InvoiceId == invoiceId)
+                .First();
+        }
+
+        /// <inheritdoc/>
         public void AddPurchaseInvoice(Invoice invoice, PurchaseInvoice purchaseInvoice)
         {
             _db.Invoices.Add(invoice);

@@ -26,6 +26,11 @@ builder.Services.AddTransient<ISalesPlanService, SalesPlanService>();
 builder.Services.AddTransient<ISalesPlanPositionService, SalesPlanPositionService>();
 builder.Services.AddTransient<IPurchasesPlanPositionService, PurchasesPlanPositionService>();
 builder.Services.AddTransient<IUnitService, UnitService>();
+builder.Services.AddTransient<IPurchasesPlanRealizationService, PurchasesPlanRealizationService>();
+builder.Services.AddTransient<IRemainingService, RemainingService>();
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
 
 var app = builder.Build();
 

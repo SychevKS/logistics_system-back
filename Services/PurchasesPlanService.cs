@@ -24,6 +24,16 @@
         }
 
         /// <inheritdoc/>
+        public PurchasesPlan GetCurrentPurchasesPlan()
+        {
+            return _db.PurchasesPlans
+                .Include(x => x.SalesPlan)
+                .Where(x => x.SalesPlan.Year == DateTime.Now.Year)
+                .Where(x => x.Month == (tMonth)DateTime.Now.Month - 1)
+                .First();
+        }
+
+        /// <inheritdoc/>
         public void AddPurchasesPlan(PurchasesPlan purchasesPlan)
         {
 

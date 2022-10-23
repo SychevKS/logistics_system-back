@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Abstractions;
+    using Models;
 
     /// <summary>
     /// Контролер позиций наклодной
@@ -22,6 +23,11 @@
             return Ok(_invoicePositionService.GetInvoicePositions(id));
         }
 
+        [HttpPost("add-purchases-positions")]
+        public void AddPurchasesPositions([FromQuery] InvoicePosition[] invoicePositions)
+        {
+            _invoicePositionService.AddPurchasesPositions(invoicePositions);
+        }
 
     }
 }
