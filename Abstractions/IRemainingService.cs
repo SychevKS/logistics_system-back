@@ -8,10 +8,22 @@
     public interface IRemainingService
     {
         /// <summary>
-        /// Добавление записи о остатке товара
+        /// Добавление записи при приходе товара
         /// </summary>
         /// <returns></returns>
-        void AddRemains(InvoicePosition invoicePosition);
+        void AddPurchasesRemains(InvoicePosition invoicePosition);
+
+        /// <summary>
+        /// Добавление записи при расходе товара
+        /// </summary>
+        /// <returns></returns>
+        void AddSalesRemains(InvoicePosition invoicePosition);
+
+        /// <summary>
+        /// Добавление записи при акте приемки-передачи товара
+        /// </summary>
+        /// <returns></returns>
+        void AddInOutRemains(InvoicePosition invoicePosition);
 
     }
 }

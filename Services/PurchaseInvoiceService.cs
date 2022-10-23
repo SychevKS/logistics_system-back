@@ -26,7 +26,7 @@
         }
 
         /// <inheritdoc/>
-        public PurchaseInvoice GetPurchaseInvoice(Guid invoiceId)
+        public PurchaseInvoice GetPurchasesInvoice(Guid invoiceId)
         {
             return _db.PurchaseInvoices
                 .Where(x => x.InvoiceId == invoiceId)

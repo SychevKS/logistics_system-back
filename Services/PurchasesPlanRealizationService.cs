@@ -22,10 +22,10 @@
         }
 
         /// <inheritdoc/>
-        public void AddPurchasesPlanRealizations(InvoicePosition invoicePosition)
+        public void AddRealization(InvoicePosition invoicePosition)
         {
             PurchaseInvoice purchaseInvoice = _purchaseInvoiceService
-                .GetPurchaseInvoice(invoicePosition.InvoiceId);
+                .GetPurchasesInvoice(invoicePosition.InvoiceId);
 
             PurchasesPlan purchasesPlan = _purchasesPlanService.GetCurrentPurchasesPlan();
 

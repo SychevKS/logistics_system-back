@@ -9,16 +9,19 @@
     {
         private readonly ApplicationContext _db;
         private readonly IPurchasesPlanRealizationService _purchasesPlanRealizationService;
+        private readonly ISalesPlanRealizationService _salesPlanRealizationService;
         private readonly IRemainingService _remainingService;
 
         public InvoicePositionService(
             ApplicationContext context, 
             IPurchasesPlanRealizationService purchasesPlanRealizationService,
+            ISalesPlanRealizationService salesPlanRealizationService,
             IRemainingService remainingService
             )
         {
             _db = context;
             _purchasesPlanRealizationService = purchasesPlanRealizationService;
+            _salesPlanRealizationService = salesPlanRealizationService;
             _remainingService = remainingService;
         }
 
@@ -37,8 +40,19 @@
         {
             foreach(InvoicePosition invoicePosition in invoicePositions)
             {
-                _remainingService.AddRemains(invoicePosition);
-                _purchasesPlanRealizationService.AddPurchasesPlanRealizations(invoicePosition);
+                _remainingService.AddPurchasesRemains(invoicePosition);
+                _purchasesPlanRealizationService.AddRealization(invoicePosition);
+                _db.InvoicePositions.Add(invoicePosition);
+            }
+            _db.SaveChanges();
+        }
+
+        public void AddSalesPositions(InvoicePosition[] invoicePositions)
+        {
+            foreach (InvoicePosition invoicePosition in invoicePositions)
+            {
+                _remainingService.AddSalesRemains(invoicePosition);
+                _salesPlanRealizationService.AddRealization(invoicePosition);
                 _db.InvoicePositions.Add(invoicePosition);
             }
             _db.SaveChanges();

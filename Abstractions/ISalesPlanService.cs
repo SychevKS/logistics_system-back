@@ -15,9 +15,15 @@
         IEnumerable<SalesPlanDTO> GetSalesPlans();
 
         /// <summary>
+        /// Получение текущего плана закупок
+        /// </summary>
+        /// <returns></returns>
+        SalesPlan GetCurrentSalesPlan();
+
+        /// <summary>
         /// Добавление плана продаж
         /// </summary>
         /// <param name="salesPlan"></param>
-        void AddSelesPlan(SalesPlan salesPlan);
+        void AddSalesPlan(SalesPlan salesPlan);
     }
 }

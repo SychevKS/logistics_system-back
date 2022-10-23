@@ -8,9 +8,9 @@
     public interface IPurchasesPlanRealizationService
     {
         /// <summary>
-        /// Добавление записи о реализации товара
+        /// Добавление записи о реализации плана закупок
         /// </summary>
         /// <returns></returns>
-        void AddPurchasesPlanRealizations(InvoicePosition invoicePosition);
+        void AddRealization(InvoicePosition invoicePosition);
     }
 }

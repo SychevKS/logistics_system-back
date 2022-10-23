@@ -29,5 +29,11 @@
             _invoicePositionService.AddPurchasesPositions(invoicePositions);
         }
 
+        [HttpPost("add-sales-positions")]
+        public void AddSalesPositions([FromQuery] InvoicePosition[] invoicePositions)
+        {
+            _invoicePositionService.AddSalesPositions(invoicePositions);
+        }
+
     }
 }

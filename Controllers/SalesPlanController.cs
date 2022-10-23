@@ -26,7 +26,7 @@
         [HttpPost("add-sales-plan")]
         public void AddUnit([FromQuery] SalesPlan salesPlan)
         {
-            _salesPlanService.AddSelesPlan(salesPlan);
+            _salesPlanService.AddSalesPlan(salesPlan);
         }
 
     }

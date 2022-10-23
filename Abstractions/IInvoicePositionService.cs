@@ -20,5 +20,11 @@
         /// <returns></returns>
         void AddPurchasesPositions(InvoicePosition[] invoicePositions);
 
+        /// <summary>
+        /// Добавление позиций расходной накладной
+        /// </summary>
+        /// <returns></returns>
+        void AddSalesPositions(InvoicePosition[] invoicePositions);
+
     }
 }

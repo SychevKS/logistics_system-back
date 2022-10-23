@@ -26,6 +26,14 @@
         }
 
         /// <inheritdoc/>
+        public SalesInvoice GetSalesInvoice(Guid invoiceId)
+        {
+            return _db.SalesInvoices
+                .Where(x => x.InvoiceId == invoiceId)
+                .First();
+        }
+
+        /// <inheritdoc/>
         public void AddSalesInvoice(Invoice invoice, SalesInvoice salesInvoice)
         {
             _db.Invoices.Add(invoice);

@@ -20,7 +20,17 @@
             return _db.SalesPlans.Select(x => new SalesPlanDTO(x));
         }
 
-        public void AddSelesPlan(SalesPlan salesPlan)
+        /// <inheritdoc/>
+        public SalesPlan GetCurrentSalesPlan()
+        {
+            return _db.SalesPlans
+                .Where(x => x.Year == DateTime.Now.Year)
+                .First();
+        }
+
+
+        /// <inheritdoc/>
+        public void AddSalesPlan(SalesPlan salesPlan)
         {
             _db.SalesPlans.Add(salesPlan);
             _db.SaveChanges();

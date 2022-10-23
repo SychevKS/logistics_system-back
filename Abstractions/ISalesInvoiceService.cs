@@ -15,6 +15,12 @@
         IEnumerable<SalesInvoiceDTO> GetSalesInvoices();
 
         /// <summary>
+        /// Получение расходной
+        /// </summary>
+        /// <returns></returns>
+        SalesInvoice GetSalesInvoice(Guid invoiceId);
+
+        /// <summary>
         /// Добавление расходной
         /// </summary>
         /// <returns></returns>

@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using logistics_system_back;
 using logistics_system_back.Abstractions;
 using logistics_system_back.Services;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +27,7 @@ builder.Services.AddTransient<IPurchasesPlanPositionService, PurchasesPlanPositi
 builder.Services.AddTransient<IUnitService, UnitService>();
 builder.Services.AddTransient<IPurchasesPlanRealizationService, PurchasesPlanRealizationService>();
 builder.Services.AddTransient<IRemainingService, RemainingService>();
+builder.Services.AddTransient<ISalesPlanRealizationService, SalesPlanRealizationService>();
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);

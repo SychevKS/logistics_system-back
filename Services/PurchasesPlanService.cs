@@ -36,7 +36,8 @@
         /// <inheritdoc/>
         public void AddPurchasesPlan(PurchasesPlan purchasesPlan)
         {
-
+            _db.PurchasesPlans.Add(purchasesPlan);
+            _db.SaveChanges();
         }
     }
 
