@@ -11,8 +11,8 @@
         public Guid WorkerId { get; set; }
         public Worker? Worker { get; set; }
         public PurchaseInvoice? Purchase { get; set; }
-        public SalesInvoice? Sales { get; set; }
-        public InOutInvoice? InOuts { get; set; }
+        public SalesInvoice? Sale { get; set; }
+        public TransferInvoice? Transfer { get; set; }
         public IEnumerable<InvoicePosition>? InvoicePositions { get; set; }
 
     }

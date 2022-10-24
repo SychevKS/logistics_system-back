@@ -2,9 +2,9 @@
 {
     using Models;
 
-    public class InOutInvoiceDTO
+    public class TransferInvoiceDTO
     {
-        public InOutInvoiceDTO(InOutInvoice inOutInvoice)
+        public TransferInvoiceDTO(TransferInvoice inOutInvoice)
         {
             InvoiceId = inOutInvoice.InvoiceId;
             Date = inOutInvoice.Invoice?.Date;

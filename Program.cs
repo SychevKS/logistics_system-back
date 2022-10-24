@@ -18,7 +18,7 @@ builder.Services.AddTransient<IWorkerService, WorkerService>();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IPurchaseInvoiceService, PurchaseInvoiceService>();
 builder.Services.AddTransient<ISalesInvoiceService, SalesInvoiceService>();
-builder.Services.AddTransient<IInOutInvoiceService, InOutInvoiceService>();
+builder.Services.AddTransient<ITransferInvoiceService, TransferInvoiceService>();
 builder.Services.AddTransient<IInvoicePositionService, InvoicePositionService>();
 builder.Services.AddTransient<IPurchasesPlanService, PurchasesPlanService>();
 builder.Services.AddTransient<ISalesPlanService, SalesPlanService>();

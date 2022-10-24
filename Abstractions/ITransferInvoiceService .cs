@@ -6,25 +6,25 @@
     /// <summary>
     /// Интерфейс сервиса работы с приходно-расходными
     /// </summary>
-    public interface IInOutInvoiceService
+    public interface ITransferInvoiceService
     {
         /// <summary>
         /// Получение списка приходно-расходных
         /// </summary>
         /// <returns></returns>
-        IEnumerable<InOutInvoiceDTO> GetInOutInvoices();
+        IEnumerable<TransferInvoiceDTO> GetTransferInvoices();
 
         /// <summary>
         /// Получение приходно-расходной
         /// </summary>
         /// <returns></returns>
-        InOutInvoice GetInOutInvoice(Guid invoiceId);
+        TransferInvoice GetTransferInvoice(Guid invoiceId);
 
         /// <summary>
         /// Добавление приходно-расходной
         /// </summary>
         /// <returns></returns>
-        void AddInOutInvoice(Invoice invoice, InOutInvoice inOutInvoice);
+        void AddTransferInvoice(Invoice invoice, TransferInvoice transferInvoice);
 
     }
 }

@@ -5,28 +5,28 @@
     using DataTransferObjects;
     using Models;
 
-    public class InOutInvoiceService : IInOutInvoiceService
+    public class TransferInvoiceService : ITransferInvoiceService
     {
         private readonly ApplicationContext _db;
 
-        public InOutInvoiceService(ApplicationContext context)
+        public TransferInvoiceService(ApplicationContext context)
         {
             _db = context;
         }
 
         /// <inheritdoc/>
-        public IEnumerable<InOutInvoiceDTO> GetInOutInvoices()
+        public IEnumerable<TransferInvoiceDTO> GetTransferInvoices()
         {
             return _db.InOutInvoices
                 .Include(p => p.Invoice)
                 .ThenInclude(p => p.Worker)
                 .Include(x => x.InDivision)
                 .Include(x => x.OutDivision)
-                .Select(x => new InOutInvoiceDTO(x));
+                .Select(x => new TransferInvoiceDTO(x));
         }
 
         /// <inheritdoc/>
-        public InOutInvoice GetInOutInvoice(Guid invoiceId)
+        public TransferInvoice GetTransferInvoice(Guid invoiceId)
         {
             return _db.InOutInvoices
                 .Where(x => x.InvoiceId == invoiceId)
@@ -34,7 +34,7 @@
         }
 
         /// <inheritdoc/>
-        public void AddInOutInvoice(Invoice invoice, InOutInvoice inOutInvoice)
+        public void AddTransferInvoice(Invoice invoice, TransferInvoice inOutInvoice)
         {
             _db.Invoices.Add(invoice);
             _db.InOutInvoices.Add(inOutInvoice);

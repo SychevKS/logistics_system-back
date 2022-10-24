@@ -3,7 +3,7 @@
     /// <summary>
     /// Класс приемно-передачная накладная
     /// </summary>
-    public class InOutInvoice
+    public class TransferInvoice
     {
         public Guid InvoiceId { get; set; }
         public Invoice Invoice { get; set; }

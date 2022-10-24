@@ -10,19 +10,19 @@
         private readonly ApplicationContext _db;
         private readonly IPurchaseInvoiceService _purchaseInvoiceService;
         private readonly ISalesInvoiceService _salesInvoiceService;
-        private readonly IInOutInvoiceService _inOutInvoiceService;
+        private readonly ITransferInvoiceService _transferInvoiceService;
 
         public RemainingService(
             ApplicationContext context, 
             IPurchaseInvoiceService purchaseInvoiceService,
             ISalesInvoiceService salesInvoiceService,
-            IInOutInvoiceService inOutInvoiceService
+            ITransferInvoiceService transferInvoiceService
             )
         {
             _db = context;
             _purchaseInvoiceService = purchaseInvoiceService;
             _salesInvoiceService = salesInvoiceService;
-            _inOutInvoiceService = inOutInvoiceService;
+            _transferInvoiceService = transferInvoiceService;
         }
 
         /// <inheritdoc/>
@@ -100,8 +100,8 @@
         /// <inheritdoc/>
         public void AddInOutRemains(InvoicePosition invoicePosition)
         {
-            InOutInvoice inOutInvoice = _inOutInvoiceService
-                .GetInOutInvoice(invoicePosition.InvoiceId);
+            TransferInvoice inOutInvoice = _transferInvoiceService
+                .GetTransferInvoice(invoicePosition.InvoiceId);
 
             Remaining? inLastRemains = _db.Remainings
                 .Where(x => x.DivisionId == inOutInvoice.InDivisionId)
