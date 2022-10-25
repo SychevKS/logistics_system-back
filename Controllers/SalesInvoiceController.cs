@@ -23,6 +23,12 @@
             return Ok(_salesInvoiceController.GetSalesInvoices());
         }
 
+        [Route("sales-invoice/{id}")]
+        public IActionResult Get(Guid id)
+        {
+            return Ok(_salesInvoiceController.GetSalesInvoice(id));
+        }
+
         [HttpPost("add-sales-invoice")]
         public void AddSalesInvoice([FromQuery] Invoice invoice, [FromQuery] SalesInvoice salesInvoice)
         {

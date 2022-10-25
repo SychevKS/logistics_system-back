@@ -18,7 +18,7 @@
         /// Получение приходной
         /// </summary>
         /// <returns></returns>
-        PurchaseInvoice GetPurchasesInvoice(Guid invoiceId);
+        PurchaseInvoiceDTO GetPurchasesInvoice(Guid invoiceId);
 
         /// <summary>
         /// Добавление приходной

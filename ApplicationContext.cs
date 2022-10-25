@@ -19,7 +19,7 @@
         public DbSet<InvoicePosition> InvoicePositions { get; set; } = null!;
         public DbSet<PurchaseInvoice> PurchaseInvoices { get; set; } = null!;
         public DbSet<SalesInvoice> SalesInvoices { get; set; } = null!;
-        public DbSet<TransferInvoice> InOutInvoices { get; set; } = null!;
+        public DbSet<TransferInvoice> TransferInvoices { get; set; } = null!;
         public DbSet<PurchasesPlan> PurchasesPlans { get; set; } = null!;
         public DbSet<PurchasesPlanPosition> PurchasesPlanPositions { get; set; } = null!;
         public DbSet<PurchasesPlanRealization> PurchasesPlanRealizations { get; set; } = null!;

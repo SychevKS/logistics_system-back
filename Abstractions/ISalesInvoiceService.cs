@@ -18,7 +18,7 @@
         /// Получение расходной
         /// </summary>
         /// <returns></returns>
-        SalesInvoice GetSalesInvoice(Guid invoiceId);
+        SalesInvoiceDTO GetSalesInvoice(Guid invoiceId);
 
         /// <summary>
         /// Добавление расходной

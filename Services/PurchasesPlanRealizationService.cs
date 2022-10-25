@@ -3,6 +3,7 @@
     using Abstractions;
     using Microsoft.EntityFrameworkCore;
     using Models;
+    using DataTransferObjects;
     
     public class PurchasesPlanRealizationService : IPurchasesPlanRealizationService
     {
@@ -24,13 +25,13 @@
         /// <inheritdoc/>
         public void AddRealization(InvoicePosition invoicePosition)
         {
-            PurchaseInvoice purchaseInvoice = _purchaseInvoiceService
+            PurchaseInvoiceDTO purchaseInvoice = _purchaseInvoiceService
                 .GetPurchasesInvoice(invoicePosition.InvoiceId);
 
             PurchasesPlan purchasesPlan = _purchasesPlanService.GetCurrentPurchasesPlan();
 
             PurchasesPlanRealization? lastRealization = _db.PurchasesPlanRealizations
-                .Where(x => x.DivisionId == purchaseInvoice.DivisionId)
+                .Where(x => x.DivisionId == purchaseInvoice.Division.Id)
                 .Where(x => x.ProductId == invoicePosition.ProductId)
                 .Where(x => x.PurchasesPlanId == purchasesPlan.Id)
                 .OrderByDescending(x => x.Date)
@@ -45,7 +46,7 @@
                     invoicePosition.Quantity + lastRealization.Quantity,
                 PurchasesPlanId = purchasesPlan.Id,
                 ProductId = invoicePosition.ProductId,
-                DivisionId = purchaseInvoice.DivisionId,
+                DivisionId = purchaseInvoice.Division.Id,
             };
             
             _db.PurchasesPlanRealizations.Add(lastRealization);

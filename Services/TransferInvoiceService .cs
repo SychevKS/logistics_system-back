@@ -17,7 +17,7 @@
         /// <inheritdoc/>
         public IEnumerable<TransferInvoiceDTO> GetTransferInvoices()
         {
-            return _db.InOutInvoices
+            return _db.TransferInvoices
                 .Include(p => p.Invoice)
                 .ThenInclude(p => p.Worker)
                 .Include(x => x.InDivision)
@@ -26,10 +26,15 @@
         }
 
         /// <inheritdoc/>
-        public TransferInvoice GetTransferInvoice(Guid invoiceId)
+        public TransferInvoiceDTO GetTransferInvoice(Guid invoiceId)
         {
-            return _db.InOutInvoices
+            return _db.TransferInvoices
+                .Include(p => p.Invoice)
+                .ThenInclude(p => p.Worker)
+                .Include(p => p.InDivision)
+                .Include(p => p.OutDivision)
                 .Where(x => x.InvoiceId == invoiceId)
+                .Select(x => new TransferInvoiceDTO(x))
                 .First();
         }
 
@@ -37,7 +42,7 @@
         public void AddTransferInvoice(Invoice invoice, TransferInvoice inOutInvoice)
         {
             _db.Invoices.Add(invoice);
-            _db.InOutInvoices.Add(inOutInvoice);
+            _db.TransferInvoices.Add(inOutInvoice);
             _db.SaveChanges();
         }
     }

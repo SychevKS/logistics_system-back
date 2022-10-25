@@ -7,7 +7,7 @@
     {
         public Guid Id { get; set; }
         public int Year { get; set; }
-        public IEnumerable<SalesPlanPosition>? PlanSalesPositions { get; set; }
-        public IEnumerable<SalesPlanRealization>? RealizationSalesPlans { get; set; }
+        public IEnumerable<SalesPlanPosition>? SalesPlanPosition { get; set; }
+        public IEnumerable<SalesPlanRealization>? SalesPlanRealization { get; set; }
     }
 }

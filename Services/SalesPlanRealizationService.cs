@@ -3,6 +3,7 @@
     using Abstractions;
     using Microsoft.EntityFrameworkCore;
     using Models;
+    using DataTransferObjects;
     
     public class SalesPlanRealizationService : ISalesPlanRealizationService
     {
@@ -24,7 +25,7 @@
         /// <inheritdoc/>
         public void AddRealization(InvoicePosition invoicePosition)
         {
-            SalesInvoice salesInvoice = _salesInvoiceService
+            SalesInvoiceDTO salesInvoice = _salesInvoiceService
                 .GetSalesInvoice(invoicePosition.InvoiceId);
 
             SalesPlan salesPlan = _salesPlanService.GetCurrentSalesPlan();

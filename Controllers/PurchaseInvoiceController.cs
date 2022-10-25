@@ -23,6 +23,12 @@
             return Ok(_purchaseInvoiceService.GetPurchaseInvoices());
         }
 
+        [Route("purchase-invoice/{id}")]
+        public IActionResult GetPurchasesInvoice(Guid id)
+        {
+            return Ok(_purchaseInvoiceService.GetPurchasesInvoice(id));
+        }
+
         [HttpPost("add-purchase-invoice")]
         public void AddPurchaseInvoice([FromQuery] Invoice invoice, [FromQuery] PurchaseInvoice purchaseInvoice)
         {

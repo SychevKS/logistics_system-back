@@ -18,7 +18,7 @@
         /// Получение приходно-расходной
         /// </summary>
         /// <returns></returns>
-        TransferInvoice GetTransferInvoice(Guid invoiceId);
+        TransferInvoiceDTO GetTransferInvoice(Guid invoiceId);
 
         /// <summary>
         /// Добавление приходно-расходной

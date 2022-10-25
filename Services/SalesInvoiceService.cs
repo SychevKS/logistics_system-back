@@ -26,10 +26,15 @@
         }
 
         /// <inheritdoc/>
-        public SalesInvoice GetSalesInvoice(Guid invoiceId)
+        public SalesInvoiceDTO GetSalesInvoice(Guid invoiceId)
         {
             return _db.SalesInvoices
+                .Include(p => p.Invoice)
+                .ThenInclude(p => p.Worker)
+                .Include(p => p.Division)
+                .Include(p => p.Partner)
                 .Where(x => x.InvoiceId == invoiceId)
+                .Select(x => new SalesInvoiceDTO(x))
                 .First();
         }
 
