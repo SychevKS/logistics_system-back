@@ -20,6 +20,22 @@
         }
 
         /// <inheritdoc/>
+        public UnitDTO? GetUnit(Guid unitId)
+        {
+            return _db.Units
+                .Where(x => x.Id == unitId)
+                .Select(x => new UnitDTO(x))
+                .FirstOrDefault();
+        }
+
+        /// <inheritdoc/>
+        public void UpdateUnit(Unit unit)
+        {
+            _db.Units.Update(unit);
+            _db.SaveChanges();
+        }
+
+        /// <inheritdoc/>
         public void AddUnit(Unit unit)
         {
             _db.Units.Add(unit);

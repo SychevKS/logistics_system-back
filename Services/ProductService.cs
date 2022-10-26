@@ -23,6 +23,22 @@
         }
 
         /// <inheritdoc/>
+        public ProductDTO? GetProduct(Guid productId)
+        {
+            return _db.Products
+                .Where(x => x.Id == productId)
+                .Select(x => new ProductDTO(x))
+                .FirstOrDefault();
+        }
+
+        /// <inheritdoc/>
+        public void UpdateProduct(Product product)
+        {
+            _db.Products.Update(product);
+            _db.SaveChanges();
+        }
+
+        /// <inheritdoc/>
         public void AddProduct(Product product)
         {
             _db.Products.Add(product);

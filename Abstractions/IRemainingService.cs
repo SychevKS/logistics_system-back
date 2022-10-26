@@ -15,6 +15,12 @@
         IEnumerable<RemainingDTO> GetRemainings(Guid divisionId);
 
         /// <summary>
+        /// Получение остатка на подразделениях
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<Object> GetRemainings();
+
+        /// <summary>
         /// Добавление записи при приходе товара
         /// </summary>
         /// <returns></returns>

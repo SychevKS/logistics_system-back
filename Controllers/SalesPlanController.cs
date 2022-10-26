@@ -23,6 +23,12 @@
             return Ok(_salesPlanService.GetSalesPlans());
         }
 
+        [Route("sales-plan/{id}")]
+        public IActionResult GetSalesPlan(Guid id)
+        {
+            return Ok(_salesPlanService.GetSalesPlan(id));
+        }
+
         [HttpPost("add-sales-plan")]
         public void AddUnit([FromQuery] SalesPlan salesPlan)
         {

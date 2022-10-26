@@ -15,6 +15,18 @@
         IEnumerable<WorkerDTO> GetWorkers();
 
         /// <summary>
+        /// Получение работника
+        /// </summary>
+        /// <returns></returns>
+        WorkerDTO? GetWorker(Guid workerId);
+
+        /// <summary>
+        /// Обновление сотрудника
+        /// </summary>
+        /// <param name="worker"></param>
+        void UpdateWorker(Worker worker);
+
+        /// <summary>
         /// Добавление сотрудника
         /// </summary>
         /// <param name="worker"></param>

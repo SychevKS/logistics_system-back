@@ -23,6 +23,12 @@
             return Ok(_purchasesPlanService.GetPurchasesPlans(id));
         }
 
+        [Route("purchases-plan/{id}")]
+        public IActionResult GetPurchasesPlan(Guid id)
+        {
+            return Ok(_purchasesPlanService.GetPurchasesPlan(id));
+        }
+
         [HttpPost("add-purchases-plan")]
         public void AddPurchasesPlan([FromQuery] PurchasesPlan purchasesPlan)
         {

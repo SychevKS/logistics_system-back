@@ -15,7 +15,19 @@
         IEnumerable<PartnerDTO> GetPartners();
 
         /// <summary>
-        /// Добавление сотрудника
+        /// Получение партнера
+        /// </summary>
+        /// <returns></returns>
+        PartnerDTO? GetPartner(Guid partnerId);
+
+        /// <summary>
+        /// Обновление партнера
+        /// </summary>
+        /// <param name="partner"></param>
+        void UpdatePartner(Partner partner);
+
+        /// <summary>
+        /// Добавление партнера
         /// </summary>
         /// <param name="partner"></param>
         void AddPartner(Partner partner);

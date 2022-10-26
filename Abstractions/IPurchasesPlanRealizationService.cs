@@ -12,5 +12,11 @@
         /// </summary>
         /// <returns></returns>
         void AddRealization(InvoicePosition invoicePosition);
+
+        /// <summary>
+        /// Получение позиций выполнения плана
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<Object> GetRealizations(Guid purchasePlanId);
     }
 }

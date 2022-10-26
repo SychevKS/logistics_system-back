@@ -20,6 +20,7 @@
             return _db.PurchasesPlanPositions
                 .Include(x => x.Product)
                 .ThenInclude(x => x.Unit)
+                .Include(x => x.Division)
                 .Where(x => x.PurchasesPlan.Id == purchasesPlanId)
                 .Select(x => new PurchasesPlanPositionDTO(x));
         }

@@ -23,6 +23,18 @@
             return Ok(_partnerService.GetPartners());
         }
 
+        [Route("partner/{id}")]
+        public IActionResult GetPartner(Guid id)
+        {
+            return Ok(_partnerService.GetPartner(id));
+        }
+
+        [HttpPost("update-partner")]
+        public void UpdatePartner([FromQuery] Partner partner)
+        {
+            _partnerService.UpdatePartner(partner);
+        }
+
         [HttpPost("add-partner")]
         public void AddPartner([FromQuery] Partner partner)
         {

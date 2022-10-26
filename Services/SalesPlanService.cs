@@ -21,6 +21,12 @@
         }
 
         /// <inheritdoc/>
+        public SalesPlan GetSalesPlan(Guid id)
+        {
+            return _db.SalesPlans.Where(x => x.Id == id).FirstOrDefault();
+        }
+
+        /// <inheritdoc/>
         public SalesPlan GetCurrentSalesPlan()
         {
             return _db.SalesPlans

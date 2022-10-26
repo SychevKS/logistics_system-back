@@ -28,21 +28,29 @@
         /// <inheritdoc/>
         public IEnumerable<RemainingDTO> GetRemainings(Guid divisionId)
         {
-            var a = _db.Remainings
-                .Include(x => x.Product)
-                .ThenInclude(x => x.Unit)
-                .Where(x => x.DivisionId == divisionId)
-                .GroupBy(x => x.ProductId)
-                .Select(x => x.OrderByDescending(x => x.Date).First())
-                .Select(x => new RemainingDTO(x));
-
             return _db.Remainings
                 .Include(x => x.Product)
                 .ThenInclude(x => x.Unit)
+                .Include(x => x.Division)
                 .Where(x => x.DivisionId == divisionId)
                 .GroupBy(x => x.ProductId)
                 .Select(x => x.OrderByDescending(x => x.Date).First()).ToList()
                 .Select(x => new RemainingDTO(x));
+        }
+
+        public IEnumerable<Object> GetRemainings()
+        {
+            return _db.Remainings
+                .Include(x => x.Product)
+                .ThenInclude(x => x.Unit)
+                .Include(x => x.Division)
+                .GroupBy(x => x.ProductId)
+                .Select(x => x.OrderByDescending(x => x.Date).First()).ToList()
+                .GroupBy(x => x.Division)
+                .Select(x => new { 
+                    division = new DivisionDTO(x.Key), 
+                    remainings = x.ToList().Select(x => new RemainingDTO(x)) 
+                });
         }
 
         /// <inheritdoc/>

@@ -24,7 +24,18 @@
             return Ok(_unitService.GetUnits());
         }
 
-        
+        [Route("unit/{id}")]
+        public IActionResult GetUnit(Guid id)
+        {
+            return Ok(_unitService.GetUnit(id));
+        }
+
+        [HttpPost("update-unit")]
+        public void UpdateUnit([FromQuery] Unit unit)
+        {
+            _unitService.UpdateUnit(unit);
+        }
+
         [HttpPost("add-unit")]
         public void AddUnit([FromQuery] Unit unit)
         {

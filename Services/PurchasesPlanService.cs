@@ -24,6 +24,16 @@
         }
 
         /// <inheritdoc/>
+        public PurchasesPlanDTO GetPurchasesPlan(Guid id)
+        {
+            return _db.PurchasesPlans
+                .Include(x => x.SalesPlan)
+                .Where(x => x.Id == id)
+                .Select(x => new PurchasesPlanDTO(x))
+                .FirstOrDefault();
+        }
+
+        /// <inheritdoc/>
         public PurchasesPlan GetCurrentPurchasesPlan()
         {
             return _db.PurchasesPlans

@@ -23,6 +23,31 @@
         }
 
         /// <inheritdoc/>
+        public IEnumerable<Object> GetRealizations(Guid purchasePlanId)
+        {
+            return _db.PurchasesPlanRealizations
+                .Include(x => x.PurchasesPlan)
+                .ThenInclude(x => x.PurchasesPlanPositions)
+                .Include(x => x.Product)
+                .ThenInclude(x => x.Unit)
+                .Include(x => x.Division)
+                .Where(x => x.PurchasesPlan.Id == purchasePlanId)
+                .GroupBy(x => new { x.ProductId, x.DivisionId })
+                .Select(x => x.OrderByDescending(x => x.Date).First()).ToList()
+                .Select(x => new
+                {
+                    id = x.Id,
+                    Product = new ProductDTO(x.Product),
+                    Division = new DivisionDTO(x.Division),
+                    Realization = x.Quantity,
+                    Purpose = x.PurchasesPlan.PurchasesPlanPositions
+                        .Where(p => p.ProductId == x.ProductId && p.PurchasesPlanId == purchasePlanId)
+                        .FirstOrDefault()
+                        ?.Quantity
+                });
+        }
+
+        /// <inheritdoc/>
         public void AddRealization(InvoicePosition invoicePosition)
         {
             PurchaseInvoiceDTO purchaseInvoice = _purchaseInvoiceService

@@ -15,6 +15,18 @@
         IEnumerable<ProductDTO> GetProducts();
 
         /// <summary>
+        /// Получение товара
+        /// </summary>
+        /// <returns></returns>
+        ProductDTO? GetProduct(Guid productId);
+
+        /// <summary>
+        /// Обновление товара
+        /// </summary>
+        /// <param name="product"></param>
+        void UpdateProduct(Product product);
+
+        /// <summary>
         /// Добавление товара
         /// </summary>
         /// <param name="product"></param>

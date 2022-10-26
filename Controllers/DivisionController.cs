@@ -23,6 +23,18 @@
             return Ok(_divisionService.GetDivisions());
         }
 
+        [Route("division/{id}")]
+        public IActionResult GetDivision(Guid id)
+        {
+            return Ok(_divisionService.GetDivision(id));
+        }
+
+        [HttpPost("update-division")]
+        public void UpdateDivision([FromQuery] Division division)
+        {
+            _divisionService.UpdateDivision(division);
+        }
+
         [HttpPost("add-division")]
         public void AddDivision([FromQuery] Division division)
         {

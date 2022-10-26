@@ -23,6 +23,18 @@
             return Ok(_productService.GetProducts());
         }
 
+        [Route("product/{id}")]
+        public IActionResult GetProduct(Guid id)
+        {
+            return Ok(_productService.GetProduct(id));
+        }
+
+        [HttpPost("update-product")]
+        public void UpdateProduct([FromQuery] Product product)
+        {
+            _productService.UpdateProduct(product);
+        }
+
         [HttpPost("add-product")]
         public void AddProduct([FromQuery] Product product)
         {

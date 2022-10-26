@@ -9,6 +9,7 @@
             Id = division.Id;
             Number = division.Number;
             Kind = division.Kind;
+
         }
 
         public Guid Id { get; set; }

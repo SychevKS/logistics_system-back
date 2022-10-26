@@ -20,6 +20,22 @@
         }
 
         /// <inheritdoc/>
+        public PartnerDTO? GetPartner(Guid partnerId)
+        {
+            return _db.Partners
+                .Where(x => x.Id == partnerId)
+                .Select(x => new PartnerDTO(x))
+                .FirstOrDefault();
+        }
+
+        /// <inheritdoc/>
+        public void UpdatePartner(Partner partner)
+        {
+            _db.Partners.Update(partner);
+            _db.SaveChanges();
+        }
+
+        /// <inheritdoc/>
         public void AddPartner(Partner partner)
         {
             _db.Partners.Add(partner);

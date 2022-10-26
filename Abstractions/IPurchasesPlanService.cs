@@ -15,6 +15,12 @@
         IEnumerable<PurchasesPlanDTO> GetPurchasesPlans(Guid SalesPlanId);
 
         /// <summary>
+        /// Получение плана закупок по айди
+        /// </summary>
+        /// <returns></returns>
+        PurchasesPlanDTO GetPurchasesPlan(Guid id);
+
+        /// <summary>
         /// Получение текущего плана закупок
         /// </summary>
         /// <returns></returns>

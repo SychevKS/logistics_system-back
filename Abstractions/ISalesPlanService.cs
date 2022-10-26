@@ -15,7 +15,13 @@
         IEnumerable<SalesPlanDTO> GetSalesPlans();
 
         /// <summary>
-        /// Получение текущего плана закупок
+        /// Получение плана продаж по айди
+        /// </summary>
+        /// <returns></returns>
+        SalesPlan GetSalesPlan(Guid id);
+
+        /// <summary>
+        /// Получение текущего плана продаж
         /// </summary>
         /// <returns></returns>
         SalesPlan GetCurrentSalesPlan();

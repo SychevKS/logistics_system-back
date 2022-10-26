@@ -20,9 +20,24 @@
         }
 
         /// <inheritdoc/>
+        public WorkerDTO? GetWorker(Guid workerId)
+        {
+            return _db.Workers
+                .Where(x => x.Id == workerId)
+                .Select(x => new WorkerDTO(x))
+                .FirstOrDefault();
+        }
+
+        /// <inheritdoc/>
         public void AddWorker(Worker worker)
         {
             _db.Workers.Add(worker);
+            _db.SaveChanges();
+        }
+
+        public void UpdateWorker(Worker worker)
+        {
+            _db.Workers.Update(worker);
             _db.SaveChanges();
         }
     }

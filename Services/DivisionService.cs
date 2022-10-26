@@ -20,6 +20,22 @@
         }
 
         /// <inheritdoc/>
+        public DivisionDTO? GetDivision(Guid divisionId)
+        {
+            return _db.Divisions
+                .Where(x => x.Id == divisionId)
+                .Select(x => new DivisionDTO(x))
+                .FirstOrDefault();
+        }
+
+        /// <inheritdoc/>
+        public void UpdateDivision(Division division)
+        {
+            _db.Divisions.Update(division);
+            _db.SaveChanges();
+        }
+
+        /// <inheritdoc/>
         public void AddDivision(Division division)
         {
             _db.Divisions.Add(division);

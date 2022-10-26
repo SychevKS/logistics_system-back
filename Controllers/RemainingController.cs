@@ -23,5 +23,11 @@
             return Ok(_remainingService.GetRemainings(id));
         }
 
+        [Route("remainings")]
+        public IActionResult GetRemainings()
+        {
+            return Ok(_remainingService.GetRemainings());
+        }
+
     }
 }
