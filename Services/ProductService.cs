@@ -26,6 +26,7 @@
         public ProductDTO? GetProduct(Guid productId)
         {
             return _db.Products
+                .Include(x => x.Unit)
                 .Where(x => x.Id == productId)
                 .Select(x => new ProductDTO(x))
                 .FirstOrDefault();
