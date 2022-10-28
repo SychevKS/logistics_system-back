@@ -53,6 +53,15 @@
 
             SalesPlan salesPlan = _salesPlanService.GetCurrentSalesPlan();
 
+            SalesPlanPosition? isNoPisition = _db.SalesPlanPositions
+                .Where(x => x.ProductId == invoicePosition.ProductId)
+                .FirstOrDefault();
+
+            if (isNoPisition == null)
+            {
+                return;
+            }
+
             SalesPlanRealization? lastRealization = _db.SalesPlanRealizations
                 .Where(x => x.ProductId == invoicePosition.ProductId)
                 .Where(x => x.SalesPlanId == salesPlan.Id)

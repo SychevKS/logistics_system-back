@@ -55,6 +55,15 @@
 
             PurchasesPlan purchasesPlan = _purchasesPlanService.GetCurrentPurchasesPlan();
 
+            PurchasesPlanPosition? isNoPisition = _db.PurchasesPlanPositions
+                .Where(x => x.ProductId == invoicePosition.ProductId)
+                .FirstOrDefault();
+
+            if(isNoPisition == null)
+            {
+                return;
+            }
+
             PurchasesPlanRealization? lastRealization = _db.PurchasesPlanRealizations
                 .Where(x => x.DivisionId == purchaseInvoice.Division.Id)
                 .Where(x => x.ProductId == invoicePosition.ProductId)

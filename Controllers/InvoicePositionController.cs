@@ -24,21 +24,21 @@
         }
 
         [HttpPost("add-purchases-positions")]
-        public void AddPurchasesPositions([FromQuery] InvoicePosition[] invoicePositions)
+        public void AddPurchasesPositions([FromQuery] InvoicePosition[] positions)
         {
-            _invoicePositionService.AddPurchasesPositions(invoicePositions);
+            _invoicePositionService.AddPurchasesPositions(positions);
         }
 
         [HttpPost("add-sales-positions")]
-        public void AddSalesPositions([FromQuery] InvoicePosition[] invoicePositions)
+        public void AddSalesPositions([FromQuery] InvoicePosition[] positions)
         {
-            _invoicePositionService.AddSalesPositions(invoicePositions);
+            _invoicePositionService.AddSalesPositions(positions);
         }
 
-        [HttpPost("add-in-out-positions")]
-        public void AddInOutPositions([FromQuery] InvoicePosition[] invoicePositions)
+        [HttpPost("add-transfers-positions")]
+        public void AddTransferPositions([FromQuery] InvoicePosition[] positions)
         {
-            _invoicePositionService.AddInOutPositions(invoicePositions);
+            _invoicePositionService.AddTransferPositions(positions);
         }
 
     }

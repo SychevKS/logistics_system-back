@@ -36,9 +36,9 @@
         }
 
         /// <inheritdoc/>
-        public void AddPurchasesPositions(InvoicePosition[] invoicePositions)
+        public void AddPurchasesPositions(InvoicePosition[] positions)
         {
-            foreach(InvoicePosition invoicePosition in invoicePositions)
+            foreach(InvoicePosition invoicePosition in positions)
             {
                 _remainingService.AddPurchasesRemains(invoicePosition);
                 _purchasesPlanRealizationService.AddRealization(invoicePosition);
@@ -48,9 +48,9 @@
         }
 
         /// <inheritdoc/>
-        public void AddSalesPositions(InvoicePosition[] invoicePositions)
+        public void AddSalesPositions(InvoicePosition[] positions)
         {
-            foreach (InvoicePosition invoicePosition in invoicePositions)
+            foreach (InvoicePosition invoicePosition in positions)
             {
                 _remainingService.AddSalesRemains(invoicePosition);
                 _salesPlanRealizationService.AddRealization(invoicePosition);
@@ -60,9 +60,9 @@
         }
 
         /// <inheritdoc/>
-        public void AddInOutPositions(InvoicePosition[] invoicePositions)
+        public void AddTransferPositions(InvoicePosition[] positions)
         {
-            foreach (InvoicePosition invoicePosition in invoicePositions)
+            foreach (InvoicePosition invoicePosition in positions)
             {
                 _remainingService.AddInOutRemains(invoicePosition);
                 _db.InvoicePositions.Add(invoicePosition);

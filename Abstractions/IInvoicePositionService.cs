@@ -18,19 +18,19 @@
         /// Добавление позиций приходной накладной
         /// </summary>
         /// <returns></returns>
-        void AddPurchasesPositions(InvoicePosition[] invoicePositions);
+        void AddPurchasesPositions(InvoicePosition[] positions);
 
         /// <summary>
         /// Добавление позиций расходной накладной
         /// </summary>
         /// <returns></returns>
-        void AddSalesPositions(InvoicePosition[] invoicePositions);
+        void AddSalesPositions(InvoicePosition[] positions);
 
         /// <summary>
         /// Добавление позиций акта приемки-передачи
         /// </summary>
         /// <returns></returns>
-        void AddInOutPositions(InvoicePosition[] invoicePositions);
+        void AddTransferPositions(InvoicePosition[] positions);
 
     }
 }
