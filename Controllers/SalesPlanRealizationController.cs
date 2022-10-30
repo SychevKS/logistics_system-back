@@ -17,11 +17,5 @@
             _salesPlanRealizationService = salesPlanRealizationService;
         }
 
-        [Route("sales-plan/{id}/realizations")]
-        public IActionResult GetRealizations(Guid id)
-        {
-            return Ok(_salesPlanRealizationService.GetRealizations(id));
-        }
-
     }
 }

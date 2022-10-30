@@ -43,14 +43,16 @@
             return _db.Remainings
                 .Include(x => x.Product)
                 .ThenInclude(x => x.Unit)
-                .Include(x => x.Division)
-                .GroupBy(x => x.ProductId)
-                .Select(x => x.OrderByDescending(x => x.Date).First()).ToList()
+                .Include(x => x.Division).ToList()
                 .GroupBy(x => x.Division)
-                .Select(x => new { 
-                    division = new DivisionDTO(x.Key), 
-                    remainings = x.ToList().Select(x => new RemainingDTO(x)) 
-                });
+                .Select(x => new
+                {
+                    division = new DivisionDTO(x.Key),
+                    remainings = x.ToList()
+                    .GroupBy(x => x.ProductId)
+                    .Select(x => x.OrderByDescending(x => x.Date).First()).ToList()
+                    .Select(x => new RemainingDTO(x))
+                }).ToList();
         }
 
         /// <inheritdoc/>

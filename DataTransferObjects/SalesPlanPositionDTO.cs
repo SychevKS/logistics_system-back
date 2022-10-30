@@ -5,18 +5,22 @@
 
     public class SalesPlanPositionDTO
     {
-        public SalesPlanPositionDTO(SalesPlanPosition salesPlanPosition)
+        public SalesPlanPositionDTO(SalesPlanPosition salesPlanPosition, int? realization)
         {
-            Id = salesPlanPosition.Id;
-            Quantity = salesPlanPosition.Quantity;
-            SalesPlan = new SalesPlanDTO(salesPlanPosition.SalesPlan);
-            Product = new ProductDTO(salesPlanPosition.Product);
+            Id = salesPlanPosition.Product.Id;
+            Name = salesPlanPosition.Product.Name;
+            Unit = salesPlanPosition.Product.Unit != null
+                ? new UnitDTO(salesPlanPosition.Product.Unit) 
+                : null;
+            Purpose = salesPlanPosition.Quantity;
+            Realization = realization != null ? realization : 0;
         }
 
         public Guid Id { get; set; }
-        public int Quantity { get; set; }
-        public SalesPlanDTO SalesPlan { get; set; }
-        public ProductDTO Product { get; set; }
+        public string? Name { get; set; }
+        public int Purpose { get; set; }
+        public int? Realization { get; set; }
+        public UnitDTO? Unit { get; set; }
 
     }
 }

@@ -17,12 +17,20 @@
         /// <inheritdoc/>
         public IEnumerable<SalesPlanPositionDTO> GetSalesPlanPositions(Guid salesPlanId)
         {
+
             return _db.SalesPlanPositions
                 .Include(x => x.SalesPlan)
+                .ThenInclude(x => x.SalesPlanRealization)
                 .Include(x => x.Product)
                 .ThenInclude(x => x.Unit)
                 .Where(x => x.SalesPlan.Id == salesPlanId)
-                .Select(x => new SalesPlanPositionDTO(x));
+                .Select(x => new {
+                    pos = x,
+                    realization = (int?) x.SalesPlan.SalesPlanRealization
+                    .Where(p => p.SalesPlanId == salesPlanId && p.ProductId == x.ProductId)
+                    .OrderByDescending(x => x.Date).FirstOrDefault().Quantity
+                })
+                .Select(x => new SalesPlanPositionDTO(x.pos, x.realization));
         }
 
         /// <inheritdoc/>

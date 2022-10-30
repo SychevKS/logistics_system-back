@@ -23,29 +23,6 @@
         }
 
         /// <inheritdoc/>
-        public IEnumerable<Object> GetRealizations(Guid salesPlanId)
-        {
-            return _db.SalesPlanRealizations
-                .Include(x => x.SalesPlan)
-                .ThenInclude(x => x.SalesPlanPosition)
-                .Include(x => x.Product)
-                .ThenInclude(x => x.Unit)
-                .Where(x => x.SalesPlan.Id == salesPlanId)
-                .GroupBy(x => x.ProductId)
-                .Select(x => x.OrderByDescending(x => x.Date).First()).ToList()
-                .Select(x => new
-                {
-                    id = x.Id,
-                    Product = new ProductDTO(x.Product),
-                    Realization = x.Quantity,
-                    Purpose = x.SalesPlan.SalesPlanPosition
-                        .Where(p => p.ProductId == x.ProductId && p.SalesPlanId == salesPlanId)
-                        .FirstOrDefault()
-                        ?.Quantity
-                });
-        }
-
-        /// <inheritdoc/>
         public void AddRealization(InvoicePosition invoicePosition)
         {
             SalesInvoiceDTO salesInvoice = _salesInvoiceService
