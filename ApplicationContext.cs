@@ -27,6 +27,7 @@
         public DbSet<SalesPlanPosition> SalesPlanPositions { get; set; } = null!;
         public DbSet<SalesPlanRealization> SalesPlanRealizations { get; set; } = null!;
         public DbSet<Remaining> Remainings { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

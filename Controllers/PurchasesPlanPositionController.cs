@@ -24,9 +24,9 @@
         }
 
         [HttpPost("add-purchases-plan-positions")]
-        public void AddPositions([FromQuery] PurchasesPlanPosition[] purchasesPlanPositions)
+        public void AddPositions([FromQuery] PurchasesPlanPosition[] positions)
         {
-            _purchasesPlanPositionService.AddPositions(purchasesPlanPositions);
+            _purchasesPlanPositionService.AddPositions(positions);
         }
 
     }

@@ -18,17 +18,25 @@
         public IEnumerable<PurchasesPlanPositionDTO> GetPurchasesPlanPositions(Guid purchasesPlanId)
         {
             return _db.PurchasesPlanPositions
+                .Include(x => x.PurchasesPlan)
+                .ThenInclude(x => x.PurchasesPlanRealizations)
                 .Include(x => x.Product)
                 .ThenInclude(x => x.Unit)
                 .Include(x => x.Division)
                 .Where(x => x.PurchasesPlan.Id == purchasesPlanId)
-                .Select(x => new PurchasesPlanPositionDTO(x));
+                .Select(x => new {
+                    pos = x,
+                    realization = (int?)x.PurchasesPlan.PurchasesPlanRealizations
+                    .Where(p => p.PurchasesPlanId == purchasesPlanId && p.ProductId == x.ProductId)
+                    .OrderByDescending(x => x.Date).FirstOrDefault().Quantity
+                })
+                .Select(x => new PurchasesPlanPositionDTO(x.pos, x.realization));
         }
 
         /// <inheritdoc/>
-        public void AddPositions(PurchasesPlanPosition[] purchasesPlanPositions)
+        public void AddPositions(PurchasesPlanPosition[] positions)
         {
-            foreach (PurchasesPlanPosition position in purchasesPlanPositions)
+            foreach (PurchasesPlanPosition position in positions)
             {
                 _db.PurchasesPlanPositions.Add(position);
             }

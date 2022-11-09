@@ -17,7 +17,6 @@
         /// <inheritdoc/>
         public IEnumerable<SalesPlanPositionDTO> GetSalesPlanPositions(Guid salesPlanId)
         {
-
             return _db.SalesPlanPositions
                 .Include(x => x.SalesPlan)
                 .ThenInclude(x => x.SalesPlanRealization)

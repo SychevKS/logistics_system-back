@@ -4,23 +4,25 @@
 
     public class PurchasesPlanPositionDTO
     {
-        public PurchasesPlanPositionDTO(PurchasesPlanPosition purchasesPlanPosition)
+        public PurchasesPlanPositionDTO(PurchasesPlanPosition position, int? realization)
         {
-            Id = purchasesPlanPosition.Id;
-            Quantity = purchasesPlanPosition.Quantity;
-            PurchasesPlan = purchasesPlanPosition.PurchasesPlan != null 
-                ? new PurchasesPlanDTO(purchasesPlanPosition.PurchasesPlan)
+            Id = position.Product.Id;
+            Name = position.Product.Name;
+            Unit = position.Product.Unit != null
+                ? new UnitDTO(position.Product.Unit)
                 : null;
-            Product = new ProductDTO(purchasesPlanPosition.Product);
-            Division = purchasesPlanPosition.Division != null 
-                ? new DivisionDTO(purchasesPlanPosition.Division)
+            Division = position.Division != null
+                ? new DivisionDTO(position.Division)
                 : null;
+            Purpose = position.Quantity;
+            Realization = realization != null ? realization : 0;
         }
 
         public Guid Id { get; set; }
-        public int Quantity { get; set; }
-        public PurchasesPlanDTO? PurchasesPlan { get; set; }
-        public ProductDTO Product { get; set; }
+        public string? Name { get; set; }
+        public int Purpose { get; set; }
+        public int? Realization { get; set; }
+        public UnitDTO? Unit { get; set; }
         public DivisionDTO? Division { get; set; }
 
     }
