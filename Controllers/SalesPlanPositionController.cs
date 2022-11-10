@@ -17,13 +17,13 @@
             _salesPlanPositionService = salesPlanPositionService;
         }
 
-        [Route("sales-plan/{id}/positions")]
+        [HttpGet("sales-plans/{id}/positions")]
         public IActionResult GetSalesPlanPositions(Guid id)
         {
             return Ok(_salesPlanPositionService.GetSalesPlanPositions(id));
         }
 
-        [HttpPost("add-sales-plan-positions")]
+        [HttpPost("sales-plans-positions")]
         public void AddPositions([FromQuery] SalesPlanPosition[] positions)
         {
             _salesPlanPositionService.AddPositions(positions);

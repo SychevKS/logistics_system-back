@@ -17,13 +17,13 @@
             _remainingService = remainingService;
         }
 
-        [Route("remainings/{id}")]
+        [HttpGet("remainings/{id}")]
         public IActionResult GetRemainings(Guid id)
         {
             return Ok(_remainingService.GetRemainings(id));
         }
 
-        [Route("remainings")]
+        [HttpGet("remainings")]
         public IActionResult GetRemainings()
         {
             return Ok(_remainingService.GetRemainings());

@@ -17,19 +17,19 @@
             _salesInvoiceController = salesInvoiceController;
         }
 
-        [Route("sales-invoices")]
+        [HttpGet("sales-invoices")]
         public IActionResult GetSalesInvoices()
         {
             return Ok(_salesInvoiceController.GetSalesInvoices());
         }
 
-        [Route("sales-invoice/{id}")]
+        [HttpGet("sales-invoices/{id}")]
         public IActionResult Get(Guid id)
         {
             return Ok(_salesInvoiceController.GetSalesInvoice(id));
         }
 
-        [HttpPost("add-sales-invoice")]
+        [HttpPost("sales-invoices")]
         public void AddSalesInvoice([FromQuery] Invoice invoice, [FromQuery] SalesInvoice salesInvoice)
         {
             _salesInvoiceController.AddSalesInvoice(invoice, salesInvoice);

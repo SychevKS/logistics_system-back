@@ -17,25 +17,25 @@
             _invoicePositionService = invoicePositionService;
         }
 
-        [Route("invoice/{id}/positions")]
+        [HttpGet("invoice/{id}/positions")]
         public IActionResult GetInvoicePositions(Guid id)
         {
             return Ok(_invoicePositionService.GetInvoicePositions(id));
         }
 
-        [HttpPost("add-purchases-positions")]
+        [HttpPost("purchases-positions")]
         public void AddPurchasesPositions([FromQuery] InvoicePosition[] positions)
         {
             _invoicePositionService.AddPurchasesPositions(positions);
         }
 
-        [HttpPost("add-sales-positions")]
+        [HttpPost("sales-positions")]
         public void AddSalesPositions([FromQuery] InvoicePosition[] positions)
         {
             _invoicePositionService.AddSalesPositions(positions);
         }
 
-        [HttpPost("add-transfers-positions")]
+        [HttpPost("transfers-positions")]
         public void AddTransferPositions([FromQuery] InvoicePosition[] positions)
         {
             _invoicePositionService.AddTransferPositions(positions);

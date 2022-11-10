@@ -17,19 +17,19 @@
             _purchaseInvoiceService = purchaseInvoiceService;
         }
 
-        [Route("purchase-invoices")]
+        [HttpGet("purchase-invoices")]
         public IActionResult GetPurchaseInvoices()
         {
             return Ok(_purchaseInvoiceService.GetPurchaseInvoices());
         }
 
-        [Route("purchase-invoice/{id}")]
+        [HttpGet("purchase-invoices/{id}")]
         public IActionResult GetPurchasesInvoice(Guid id)
         {
             return Ok(_purchaseInvoiceService.GetPurchasesInvoice(id));
         }
 
-        [HttpPost("add-purchase-invoice")]
+        [HttpPost("purchase-invoices")]
         public void AddPurchaseInvoice([FromQuery] Invoice invoice, [FromQuery] PurchaseInvoice purchaseInvoice)
         {
             _purchaseInvoiceService.AddPurchaseInvoice(invoice, purchaseInvoice);

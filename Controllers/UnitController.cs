@@ -18,25 +18,25 @@
             _unitService = unitService;
         }
 
-        [Route("units")]
+        [HttpGet("units")]
         public IActionResult GetUnits()
         {
             return Ok(_unitService.GetUnits());
         }
 
-        [Route("unit/{id}")]
+        [HttpGet("units/{id}")]
         public IActionResult GetUnit(Guid id)
         {
             return Ok(_unitService.GetUnit(id));
         }
 
-        [HttpPost("update-unit")]
+        [HttpPut("units")]
         public void UpdateUnit([FromQuery] Unit unit)
         {
             _unitService.UpdateUnit(unit);
         }
 
-        [HttpPost("add-unit")]
+        [HttpPost("units")]
         public void AddUnit([FromQuery] Unit unit)
         {
             _unitService.AddUnit(unit);

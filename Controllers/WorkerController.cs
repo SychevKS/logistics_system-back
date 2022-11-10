@@ -17,25 +17,25 @@
             _workerService = workerService;
         }
 
-        [Route("workers")] 
+        [HttpGet("workers")] 
         public IActionResult GetWorkers()
         {
             return Ok(_workerService.GetWorkers());
         }
 
-        [Route("worker/{id}")] 
+        [HttpPatch("workers/{id}")] 
         public IActionResult GetWorker(Guid id)
         {
             return Ok(_workerService.GetWorker(id));
         }
 
-        [HttpPost("update-worker")]
+        [HttpPut("workers")]
         public void UpdateWorker([FromQuery] Worker worker)
         {
             _workerService.UpdateWorker(worker);
         }
 
-        [HttpPost("add-worker")]
+        [HttpPost("workers")]
         public void AddWorker([FromQuery] Worker worker)
         {
             _workerService.AddWorker(worker);

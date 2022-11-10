@@ -17,19 +17,19 @@
             _transferInvoiceService = transferInvoiceService;
         }
 
-        [Route("transfer-invoices")]
+        [HttpGet("transfer-invoices")]
         public IActionResult GetSalesInvoices()
         {
             return Ok(_transferInvoiceService.GetTransferInvoices());
         }
 
-        [Route("transfer-invoice/{id}")]
+        [HttpGet("transfer-invoices/{id}")]
         public IActionResult Get(Guid id)
         {
             return Ok(_transferInvoiceService.GetTransferInvoice(id));
         }
 
-        [HttpPost("add-transfer-invoice")]
+        [HttpPost("transfer-invoices")]
         public void AddInOutInvoice([FromQuery] Invoice invoice, [FromQuery] TransferInvoice inOutInvoice)
         {
             _transferInvoiceService.AddTransferInvoice(invoice, inOutInvoice);

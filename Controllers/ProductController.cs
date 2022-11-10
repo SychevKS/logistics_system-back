@@ -17,25 +17,25 @@
             _productService = productService;
         }
 
-        [Route("products")]
+        [HttpGet("products")]
         public IActionResult GetProducts()
         {
             return Ok(_productService.GetProducts());
         }
 
-        [Route("product/{id}")]
+        [HttpGet("products/{id}")]
         public IActionResult GetProduct(Guid id)
         {
             return Ok(_productService.GetProduct(id));
         }
 
-        [HttpPost("update-product")]
+        [HttpPut("products")]
         public void UpdateProduct([FromQuery] Product product)
         {
             _productService.UpdateProduct(product);
         }
 
-        [HttpPost("add-product")]
+        [HttpPost("products")]
         public void AddProduct([FromQuery] Product product)
         {
             _productService.AddProduct(product);

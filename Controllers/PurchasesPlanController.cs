@@ -17,19 +17,19 @@
             _purchasesPlanService = purchasesPlanService;
         }
 
-        [Route("sales-plan/{id}/purchases-plans")]
+        [HttpGet("sales-plan/{id}/purchases-plans")]
         public IActionResult GetPurchasesPlans(Guid id)
         {
             return Ok(_purchasesPlanService.GetPurchasesPlans(id));
         }
 
-        [Route("purchases-plan/{id}")]
+        [HttpGet("purchases-plans/{id}")]
         public IActionResult GetPurchasesPlan(Guid id)
         {
             return Ok(_purchasesPlanService.GetPurchasesPlan(id));
         }
 
-        [HttpPost("add-purchases-plan")]
+        [HttpPost("purchases-plans")]
         public void AddPurchasesPlan([FromQuery] PurchasesPlan purchasesPlan)
         {
             _purchasesPlanService.AddPurchasesPlan(purchasesPlan);

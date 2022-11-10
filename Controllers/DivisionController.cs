@@ -17,25 +17,25 @@
             _divisionService = amendmentService;
         }
 
-        [Route("divisions")]
+        [HttpGet("divisions")]
         public IActionResult GetDivisions()
         {
             return Ok(_divisionService.GetDivisions());
         }
 
-        [Route("division/{id}")]
+        [HttpGet("divisions/{id}")]
         public IActionResult GetDivision(Guid id)
         {
             return Ok(_divisionService.GetDivision(id));
         }
 
-        [HttpPost("update-division")]
+        [HttpPut("divisions")]
         public void UpdateDivision([FromQuery] Division division)
         {
             _divisionService.UpdateDivision(division);
         }
 
-        [HttpPost("add-division")]
+        [HttpPost("divisions")]
         public void AddDivision([FromQuery] Division division)
         {
             _divisionService.AddDivision(division);

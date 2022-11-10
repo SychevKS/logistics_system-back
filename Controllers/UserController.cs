@@ -21,15 +21,7 @@
             _userService = userService;
         }
 
-        [Authorize]
-        [Route("getlogin")]
-        public IActionResult GetLogin()
-        {
-            return Ok($"Ваш логин: {User.Identity.Name}");
-        }
-
-
-        [HttpPost("token")]
+        [HttpPost("authorization")]
         public IActionResult Token(string login, string password)
         {
             var identity = GetIdentity(login, password);

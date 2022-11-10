@@ -17,25 +17,25 @@
             _partnerService = partnerService;
         }
 
-        [Route("partners")]
+        [HttpGet("partners")]
         public IActionResult GetPartners()
         {
             return Ok(_partnerService.GetPartners());
         }
 
-        [Route("partner/{id}")]
+        [HttpGet("partners/{id}")]
         public IActionResult GetPartner(Guid id)
         {
             return Ok(_partnerService.GetPartner(id));
         }
 
-        [HttpPost("update-partner")]
+        [HttpPut("partners")]
         public void UpdatePartner([FromQuery] Partner partner)
         {
             _partnerService.UpdatePartner(partner);
         }
 
-        [HttpPost("add-partner")]
+        [HttpPost("partners")]
         public void AddPartner([FromQuery] Partner partner)
         {
             _partnerService.AddPartner(partner);

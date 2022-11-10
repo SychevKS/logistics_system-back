@@ -17,20 +17,20 @@
             _salesPlanService = salesPlanService;
         }
 
-        [Route("sales-plans")]
+        [HttpGet("sales-plans")]
         public IActionResult GetSalesPlans()
         {
             return Ok(_salesPlanService.GetSalesPlans());
         }
 
-        [Route("sales-plan/{id}")]
+        [HttpGet("sales-plans/{id}")]
         public IActionResult GetSalesPlan(Guid id)
         {
             return Ok(_salesPlanService.GetSalesPlan(id));
         }
 
-        [HttpPost("add-sales-plan")]
-        public void AddUnit([FromQuery] SalesPlan salesPlan)
+        [HttpPost("sales-plans")]
+        public void AddSalesPlan([FromQuery] SalesPlan salesPlan)
         {
             _salesPlanService.AddSalesPlan(salesPlan);
         }
