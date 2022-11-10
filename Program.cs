@@ -4,6 +4,8 @@ using logistics_system_back.Abstractions;
 using logistics_system_back.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Serilog.Sinks.PostgreSQL;
+using NpgsqlTypes;
 using Serilog;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -63,10 +65,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 builder.Services.AddControllersWithViews();
 
+IDictionary<string, ColumnWriterBase> colums = new Dictionary<string, ColumnWriterBase>
+{
+    { "message", new RenderedMessageColumnWriter(NpgsqlDbType.Text) },
+    { "date", new TimestampColumnWriter(NpgsqlDbType.Timestamp) },
+    { "UserName", new SinglePropertyColumnWriter("UserName", PropertyWriteMethod.ToString, NpgsqlDbType.Text) },
+};
 
+builder.Host
+    .UseSerilog((context, config) => config
+    .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Transaction", Serilog.Events.LogEventLevel.Information)
+    .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Fatal)
+    .WriteTo.PostgreSQL(connection, "Logs", colums, needAutoCreateTable: true ));
 
 var app = builder.Build();
-
 
 app.UseHttpsRedirection();
 app.UseDeveloperExceptionPage();
@@ -81,20 +93,17 @@ app.UseCors(x => x
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.UseSerilogRequestLogging(options =>
 {
-    options.EnrichDiagnosticContext = PushSeriLogProperties;
+    options.EnrichDiagnosticContext = 
+        (IDiagnosticContext diagnosticContext, HttpContext httpContext) => 
+            diagnosticContext.Set("UserName", httpContext.User.Identity.IsAuthenticated ? httpContext.User.Identity.Name : "App");
 });
-
-static void PushSeriLogProperties(IDiagnosticContext diagnosticContext, HttpContext httpContext)
-{
-    diagnosticContext.Set("SomePropertyName", httpContext.User.Identity.Name);
-}
 
 
 app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
 app.MapControllers();
-
 
 app.Run();
 

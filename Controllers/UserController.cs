@@ -21,7 +21,7 @@
             _userService = userService;
         }
 
-        4[Authorize]
+        [Authorize]
         [Route("getlogin")]
         public IActionResult GetLogin()
         {
