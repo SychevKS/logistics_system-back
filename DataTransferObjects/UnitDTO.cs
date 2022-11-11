@@ -4,12 +4,6 @@
 
     public class UnitDTO
     {
-        public UnitDTO()
-        {
-            Id = new Guid();
-            Name = "";
-        }
-
         public UnitDTO(Unit unit)
         {
             Id = unit.Id;

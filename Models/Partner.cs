@@ -8,8 +8,8 @@
         public Guid Id { get; set; }
         public string? Name { get; set; }
         public tPartnerKind? Kind { get; set; }
-        public IEnumerable<SalesInvoice>? SalesInvoices { get; set; }
-        public IEnumerable<PurchaseInvoice>? PurchaseInvoices { get; set; }
+        public IEnumerable<InvoiceSale>? InvoiceSales { get; set; }
+        public IEnumerable<InvoicePurchase>? InvoicePurchases { get; set; }
 
     }
 }

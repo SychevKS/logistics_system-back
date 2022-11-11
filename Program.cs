@@ -24,18 +24,16 @@ builder.Services.AddTransient<IDivisionService, DivisionService>();
 builder.Services.AddTransient<IPartnerService, PartnerService>();
 builder.Services.AddTransient<IWorkerService, WorkerService>();
 builder.Services.AddTransient<IProductService, ProductService>();
-builder.Services.AddTransient<IPurchaseInvoiceService, PurchaseInvoiceService>();
-builder.Services.AddTransient<ISalesInvoiceService, SalesInvoiceService>();
+builder.Services.AddTransient<IInvoicePurchaseService, InvoicePurchaseService>();
+builder.Services.AddTransient<IInvoiceSaleService, InvoiceSaleService>();
 builder.Services.AddTransient<ITransferInvoiceService, TransferInvoiceService>();
 builder.Services.AddTransient<IInvoicePositionService, InvoicePositionService>();
-builder.Services.AddTransient<IPurchasesPlanService, PurchasesPlanService>();
-builder.Services.AddTransient<ISalesPlanService, SalesPlanService>();
-builder.Services.AddTransient<ISalesPlanPositionService, SalesPlanPositionService>();
-builder.Services.AddTransient<IPurchasesPlanPositionService, PurchasesPlanPositionService>();
+builder.Services.AddTransient<IPlanPurchasesService, PlanPurchasesService>();
+builder.Services.AddTransient<IPlanSalesService, PlanSalesService>();
+builder.Services.AddTransient<IPlanSalesPositionService, PlanSalesPositionService>();
+builder.Services.AddTransient<IPlanPurchasesPositionService, PlanPurchasesPositionService>();
 builder.Services.AddTransient<IUnitService, UnitService>();
-builder.Services.AddTransient<IPurchasesPlanRealizationService, PurchasesPlanRealizationService>();
 builder.Services.AddTransient<IRemainingService, RemainingService>();
-builder.Services.AddTransient<ISalesPlanRealizationService, SalesPlanRealizationService>();
 builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddAuthorization();
@@ -69,12 +67,15 @@ IDictionary<string, ColumnWriterBase> colums = new Dictionary<string, ColumnWrit
 {
     { "message", new RenderedMessageColumnWriter(NpgsqlDbType.Text) },
     { "date", new TimestampColumnWriter(NpgsqlDbType.Timestamp) },
-    { "UserName", new SinglePropertyColumnWriter("UserName", PropertyWriteMethod.ToString, NpgsqlDbType.Text) },
+    { "UserName", new SinglePropertyColumnWriter(
+        "UserName", PropertyWriteMethod.ToString, NpgsqlDbType.Text) },
 };
 
 builder.Host
     .UseSerilog((context, config) => config
-    .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Transaction", Serilog.Events.LogEventLevel.Information)
+    .MinimumLevel.Override(
+        "Microsoft.EntityFrameworkCore.Database.Transaction", 
+        Serilog.Events.LogEventLevel.Information)
     .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Fatal)
     .WriteTo.PostgreSQL(connection, "Logs", colums, needAutoCreateTable: true ));
 
@@ -98,9 +99,9 @@ app.UseSerilogRequestLogging(options =>
 {
     options.EnrichDiagnosticContext = 
         (IDiagnosticContext diagnosticContext, HttpContext httpContext) => 
-            diagnosticContext.Set("UserName", httpContext.User.Identity.IsAuthenticated ? httpContext.User.Identity.Name : "App");
+            diagnosticContext.Set(
+                "UserName", httpContext.User.Identity.Name);
 });
-
 
 app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
 app.MapControllers();

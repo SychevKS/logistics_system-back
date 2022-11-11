@@ -8,14 +8,14 @@
     public class RemainingService : IRemainingService
     {
         private readonly ApplicationContext _db;
-        private readonly IPurchaseInvoiceService _purchaseInvoiceService;
-        private readonly ISalesInvoiceService _salesInvoiceService;
+        private readonly IInvoicePurchaseService _purchaseInvoiceService;
+        private readonly IInvoiceSaleService _salesInvoiceService;
         private readonly ITransferInvoiceService _transferInvoiceService;
 
         public RemainingService(
             ApplicationContext context, 
-            IPurchaseInvoiceService purchaseInvoiceService,
-            ISalesInvoiceService salesInvoiceService,
+            IInvoicePurchaseService purchaseInvoiceService,
+            IInvoiceSaleService salesInvoiceService,
             ITransferInvoiceService transferInvoiceService
             )
         {
@@ -56,14 +56,14 @@
         }
 
         /// <inheritdoc/>
-        public void AddPurchasesRemains(InvoicePosition invoicePosition)
+        public void AddPurchasesRemains(InvoicePosition position)
         {
-            PurchaseInvoiceDTO purchaseInvoice = _purchaseInvoiceService
-                .GetPurchasesInvoice(invoicePosition.InvoiceId);
+            InvoicePurchaseDTO invoice = _purchaseInvoiceService
+                .GetInvoicePurchase(position.InvoiceId);
 
             Remaining? lastRemains = _db.Remainings
-                .Where(x => x.DivisionId == purchaseInvoice.Division.Id)
-                .Where(x => x.ProductId == invoicePosition.ProductId)
+                .Where(x => x.DivisionId == invoice.Division.Id)
+                .Where(x => x.ProductId == position.ProductId)
                 .OrderByDescending(x => x.Date)
                 .FirstOrDefault();
 
@@ -71,11 +71,11 @@
             {
                 Id = Guid.NewGuid(),
                 Date = DateTime.Now,
-                Quantity = lastRemains == null ? 
-                    invoicePosition.Quantity :
-                    invoicePosition.Quantity + lastRemains.Quantity,
-                ProductId = invoicePosition.ProductId,
-                DivisionId = purchaseInvoice.Division.Id,
+                Quantity = lastRemains == null ?
+                    position.Quantity :
+                    position.Quantity + lastRemains.Quantity,
+                ProductId = position.ProductId,
+                DivisionId = invoice.Division.Id,
             };
 
             _db.Remainings.Add(lastRemains);
@@ -83,14 +83,14 @@
         }
 
         /// <inheritdoc/>
-        public void AddSalesRemains(InvoicePosition invoicePosition)
+        public void AddSalesRemains(InvoicePosition position)
         {
-            SalesInvoiceDTO salesInvoice = _salesInvoiceService
-                .GetSalesInvoice(invoicePosition.InvoiceId);
+            InvoiceSaleDTO invoice = _salesInvoiceService
+                .GetInvoiceSale(position.InvoiceId);
 
             Remaining lastRemains = _db.Remainings
-                .Where(x => x.DivisionId == salesInvoice.Division.Id)
-                .Where(x => x.ProductId == invoicePosition.ProductId)
+                .Where(x => x.DivisionId == invoice.Division.Id)
+                .Where(x => x.ProductId == position.ProductId)
                 .OrderByDescending(x => x.Date)
                 .First();
 
@@ -98,9 +98,9 @@
             {
                 Id = Guid.NewGuid(),
                 Date = DateTime.Now,
-                Quantity = lastRemains.Quantity - invoicePosition.Quantity,
-                ProductId = invoicePosition.ProductId,
-                DivisionId = salesInvoice.Division.Id,
+                Quantity = lastRemains.Quantity - position.Quantity,
+                ProductId = position.ProductId,
+                DivisionId = invoice.Division.Id,
             };
 
             _db.Remainings.Add(lastRemains);
@@ -108,20 +108,20 @@
         }
 
         /// <inheritdoc/>
-        public void AddInOutRemains(InvoicePosition invoicePosition)
+        public void AddInOutRemains(InvoicePosition position)
         {
-            TransferInvoiceDTO inOutInvoice = _transferInvoiceService
-                .GetTransferInvoice(invoicePosition.InvoiceId);
+            InvoiceTransferDTO invoice = _transferInvoiceService
+                .GetInvoiceTransfer(position.InvoiceId);
 
             Remaining? inLastRemains = _db.Remainings
-                .Where(x => x.DivisionId == inOutInvoice.InDivision.Id)
-                .Where(x => x.ProductId == invoicePosition.ProductId)
+                .Where(x => x.DivisionId == invoice.InDivision.Id)
+                .Where(x => x.ProductId == position.ProductId)
                 .OrderByDescending(x => x.Date)
                 .FirstOrDefault();
 
             Remaining outLastRemains = _db.Remainings
-                .Where(x => x.DivisionId == inOutInvoice.OutDivision.Id)
-                .Where(x => x.ProductId == invoicePosition.ProductId)
+                .Where(x => x.DivisionId == invoice.OutDivision.Id)
+                .Where(x => x.ProductId == position.ProductId)
                 .OrderByDescending(x => x.Date)
                 .First();
 
@@ -130,19 +130,19 @@
                 Id = Guid.NewGuid(),
                 Date = DateTime.Now,
                 Quantity = inLastRemains == null ?
-                    invoicePosition.Quantity :
-                    invoicePosition.Quantity + inLastRemains.Quantity,
-                ProductId = invoicePosition.ProductId,
-                DivisionId = inOutInvoice.InDivision.Id,
+                    position.Quantity :
+                    position.Quantity + inLastRemains.Quantity,
+                ProductId = position.ProductId,
+                DivisionId = invoice.InDivision.Id,
             };
 
             outLastRemains = new Remaining
             {
                 Id = Guid.NewGuid(),
                 Date = DateTime.Now,
-                Quantity = outLastRemains.Quantity - invoicePosition.Quantity,
-                ProductId = invoicePosition.ProductId,
-                DivisionId = inOutInvoice.OutDivision.Id,
+                Quantity = outLastRemains.Quantity - position.Quantity,
+                ProductId = position.ProductId,
+                DivisionId = invoice.OutDivision.Id,
             };
 
             _db.Remainings.Add(inLastRemains);

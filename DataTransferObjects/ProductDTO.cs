@@ -9,12 +9,12 @@
             ID = product.Id;
             Name = product.Name;
             Price = product.Price;
-            Unit = new UnitDTO(product.Unit);
+            Unit = product.Unit != null ? new UnitDTO(product.Unit) : null;
         }
 
         public Guid ID { get; set; }
         public string? Name { get; set; }
-        public UnitDTO Unit { get; set; }
+        public UnitDTO? Unit { get; set; }
         public int? Price { get; set; }
     }
 }

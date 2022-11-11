@@ -8,13 +8,13 @@
         public Guid Id { get; set;} 
         public int Number { get; set;}
         public tDivisionKind Kind { get; set;}
-        public IEnumerable<PurchaseInvoice>? PurchaseInvoices { get; set;}
-        public IEnumerable<SalesInvoice>? SalesInvoices { get; set;}
-        public IEnumerable<TransferInvoice>? TransferInInvoices { get; set;}
-        public IEnumerable<TransferInvoice>? TransferOutInvoices { get; set; }
+        public IEnumerable<InvoicePurchase>? InvoicePurchases { get; set;}
+        public IEnumerable<InvoiceSale>? InvoiceSales { get; set;}
+        public IEnumerable<InvoiceTransfer>? InInvoiceTransfers { get; set;}
+        public IEnumerable<InvoiceTransfer>? OutInvoiceTransfers { get; set; }
         public IEnumerable<Remaining>? Remainings { get; set; }
-        public IEnumerable<PurchasesPlanPosition>? PurchasesPlanPositions { get; set; }
-        public IEnumerable<PurchasesPlanRealization>? PurchasesPlanRealizations { get; set; }
+        public IEnumerable<PlanPurchasesPosition>? PlanPurchasesPositions { get; set; }
+        public IEnumerable<PlanPurchasesRealization>? PlanPurchasesRealizations { get; set; }
 
 
     }

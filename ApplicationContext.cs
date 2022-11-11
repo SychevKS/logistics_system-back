@@ -17,37 +17,37 @@
         public DbSet<Unit> Units { get; set; } = null!;
         public DbSet<Invoice> Invoices { get; set; } = null!;
         public DbSet<InvoicePosition> InvoicePositions { get; set; } = null!;
-        public DbSet<PurchaseInvoice> PurchaseInvoices { get; set; } = null!;
-        public DbSet<SalesInvoice> SalesInvoices { get; set; } = null!;
-        public DbSet<TransferInvoice> TransferInvoices { get; set; } = null!;
-        public DbSet<PurchasesPlan> PurchasesPlans { get; set; } = null!;
-        public DbSet<PurchasesPlanPosition> PurchasesPlanPositions { get; set; } = null!;
-        public DbSet<PurchasesPlanRealization> PurchasesPlanRealizations { get; set; } = null!;
-        public DbSet<SalesPlan> SalesPlans { get; set; } = null!;
-        public DbSet<SalesPlanPosition> SalesPlanPositions { get; set; } = null!;
-        public DbSet<SalesPlanRealization> SalesPlanRealizations { get; set; } = null!;
+        public DbSet<InvoicePurchase> InvoicePurchases { get; set; } = null!;
+        public DbSet<InvoiceSale> InvoiceSales { get; set; } = null!;
+        public DbSet<InvoiceTransfer> InvoiceTransfers { get; set; } = null!;
+        public DbSet<PlanPurchases> PlansPurchases { get; set; } = null!;
+        public DbSet<PlanPurchasesPosition> PlanPurchasesPositions { get; set; } = null!;
+        public DbSet<PlanPurchasesRealization> PlanPurchasesRealizations { get; set; } = null!;
+        public DbSet<PlanSales> PlansSales { get; set; } = null!;
+        public DbSet<PlanSalesPosition> PlanSalesPositions { get; set; } = null!;
+        public DbSet<PlanSalesRealization> PlanSalesRealizations { get; set; } = null!;
         public DbSet<Remaining> Remainings { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PurchaseInvoice>()
+            modelBuilder.Entity<InvoicePurchase>()
                 .HasKey(l => l.InvoiceId);
 
-            modelBuilder.Entity<SalesInvoice>()
+            modelBuilder.Entity<InvoiceSale>()
                 .HasKey(l => l.InvoiceId);
 
-            modelBuilder.Entity<TransferInvoice>()
+            modelBuilder.Entity<InvoiceTransfer>()
                 .HasKey(l => l.InvoiceId);
 
-            modelBuilder.Entity<TransferInvoice>()
+            modelBuilder.Entity<InvoiceTransfer>()
                 .HasOne(g => g.InDivision)
-                .WithMany(t => t.TransferInInvoices)
+                .WithMany(t => t.InInvoiceTransfers)
                 .HasForeignKey(t => t.InDivisionId);
 
-            modelBuilder.Entity<TransferInvoice>()
+            modelBuilder.Entity<InvoiceTransfer>()
                 .HasOne(g => g.OutDivision)
-                .WithMany(t => t.TransferOutInvoices)
+                .WithMany(t => t.OutInvoiceTransfers)
                 .HasForeignKey(t => t.OutDivisionId);
 
         }

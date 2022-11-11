@@ -12,10 +12,10 @@
         public Unit? Unit { get; set; }
         public IEnumerable<InvoicePosition>? InvoicePositions { get; set; }
         public IEnumerable<Remaining>? Remainings { get; set; }
-        public IEnumerable<SalesPlanPosition>? SalesPlanPositions { get; set; }
-        public IEnumerable<SalesPlanRealization>? SalesPlanRealizations { get; set; }
-        public IEnumerable<PurchasesPlanPosition>? PurchasesPlanPositions { get; set; }
-        public IEnumerable<PurchasesPlanRealization>? PurchasesPlanRealizations { get; set; }
+        public IEnumerable<PlanSalesPosition>? PlanSalesPositions { get; set; }
+        public IEnumerable<PlanSalesRealization>? PlanSalesRealizations { get; set; }
+        public IEnumerable<PlanPurchasesPosition>? PlanPurchasesPositions { get; set; }
+        public IEnumerable<PlanPurchasesRealization>? PlanPurchasesRealizations { get; set; }
 
     }
 }

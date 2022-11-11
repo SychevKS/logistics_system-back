@@ -10,7 +10,7 @@
             Price = invoicePosition.Price;
             Quantity = invoicePosition.Quantity;
             CostDelivery = invoicePosition.CostDelivery;
-            Product = new ProductDTO(invoicePosition.Product);
+            Product = invoicePosition.Product != null ? new ProductDTO(invoicePosition.Product) : null;
 
         }
 
@@ -18,7 +18,7 @@
         public int Price { get; set; }
         public int Quantity { get; set; }
         public int CostDelivery { get; set; }
-        public ProductDTO Product { get; set; }
+        public ProductDTO? Product { get; set; }
 
     }
 }

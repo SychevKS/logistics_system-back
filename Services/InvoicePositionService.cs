@@ -8,20 +8,20 @@
     public class InvoicePositionService : IInvoicePositionService
     {
         private readonly ApplicationContext _db;
-        private readonly IPurchasesPlanRealizationService _purchasesPlanRealizationService;
-        private readonly ISalesPlanRealizationService _salesPlanRealizationService;
+        private readonly IPlanPurchasesPositionService _planPurchasesPositionService;
+        private readonly IPlanSalesPositionService _planSalesPositionService;
         private readonly IRemainingService _remainingService;
 
         public InvoicePositionService(
-            ApplicationContext context, 
-            IPurchasesPlanRealizationService purchasesPlanRealizationService,
-            ISalesPlanRealizationService salesPlanRealizationService,
+            ApplicationContext context,
+            IPlanPurchasesPositionService planPurchasesPositionService,
+            IPlanSalesPositionService planSalesPositionService,
             IRemainingService remainingService
             )
         {
             _db = context;
-            _purchasesPlanRealizationService = purchasesPlanRealizationService;
-            _salesPlanRealizationService = salesPlanRealizationService;
+            _planPurchasesPositionService = planPurchasesPositionService;
+            _planSalesPositionService = planSalesPositionService;
             _remainingService = remainingService;
         }
 
@@ -41,7 +41,7 @@
             foreach(InvoicePosition invoicePosition in positions)
             {
                 _remainingService.AddPurchasesRemains(invoicePosition);
-                _purchasesPlanRealizationService.AddRealization(invoicePosition);
+                _planPurchasesPositionService.AddRealization(invoicePosition);
                 _db.InvoicePositions.Add(invoicePosition);
             }
             _db.SaveChanges();
@@ -53,7 +53,7 @@
             foreach (InvoicePosition invoicePosition in positions)
             {
                 _remainingService.AddSalesRemains(invoicePosition);
-                _salesPlanRealizationService.AddRealization(invoicePosition);
+                _planSalesPositionService.AddRealization(invoicePosition);
                 _db.InvoicePositions.Add(invoicePosition);
             }
             _db.SaveChanges();
