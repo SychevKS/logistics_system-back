@@ -9,13 +9,17 @@
     {
         private readonly ApplicationContext _db;
         private readonly IPlanPurchasesService _planPurchasesService;
+        private readonly IInvoicePurchaseService _invoicePurchaseService;
+        private readonly IPlanPurchasesPositionService _planPurchasesPositionService;
 
         public PlanPurchasesPositionService(
             ApplicationContext context, 
-            IPlanPurchasesService planPurchasesService)
+            IPlanPurchasesService planPurchasesService,
+            IInvoicePurchaseService invoicePurchaseService)
         {
             _db = context;
             _planPurchasesService = planPurchasesService;
+            _invoicePurchaseService = invoicePurchaseService;
         }
 
         /// <inheritdoc/>
@@ -26,8 +30,17 @@
                 .Include(x => x.Product)
                 .ThenInclude(x => x.Unit)
                 .Include(x => x.Division)
-                .Where(x => x.PlanPurchases.Id == purchasesPlanId)
-                .Select(x => new PlanPurchasesPositionDTO(x));
+                .Where(x => x.PlanPurchasesId == purchasesPlanId)
+                .Select(x => new 
+                {
+                    fields = x,
+                    realization = (int?)
+                        x.PlanPurchases.PlanPurchasesRealizations
+                            .Where(p => p.PlanPurchasesId == x.PlanPurchasesId && p.ProductId == x.ProductId)
+                            .OrderByDescending(p => p.Date)
+                            .FirstOrDefault().Quantity
+                })
+                .Select(x => new PlanPurchasesPositionDTO(x.fields, x.realization));
         }
 
         /// <inheritdoc/>
@@ -42,13 +55,14 @@
 
         public void AddRealization(InvoicePosition invoicePosition)
         {
-            PlanPurchases planPurchases = _planPurchasesService.GetCurrentPlan(
-                invoicePosition.Invoice.Date);
+            PlanPurchases? planPurchases = _planPurchasesService.GetCurrentPlan(
+                invoicePosition.InvoiceId);
 
             bool isNoPisition = _db.PlanPurchasesPositions
                 .Any(x => x.ProductId == invoicePosition.ProductId);
 
-            Division? division = invoicePosition.Invoice.Purchase.Division;
+            DivisionDTO? division = _invoicePurchaseService
+                .GetInvoicePurchase(invoicePosition.InvoiceId).Division;
 
             if (isNoPisition)
             {
@@ -75,15 +89,6 @@
                 _db.SaveChanges();
             }
             
-        }
-
-        public int? GetLastRealization(Guid planId, Guid productId)
-        {
-            return _db.PlanPurchasesRealizations
-                .Where(p => p.PlanPurchasesId == planId && p.ProductId == productId)
-                .OrderByDescending(x => x.Date)
-                .FirstOrDefault()?.Quantity;
-
         }
 
     }

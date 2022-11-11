@@ -7,7 +7,7 @@
         public InvoiceSaleDTO(InvoiceSale invoiceSales)
         {
             InvoiceId = invoiceSales.InvoiceId;
-            Date = invoiceSales.Invoice?.Date;
+            Date = invoiceSales.Invoice.Date;
             Number = invoiceSales.Invoice?.Number;
             Worker = invoiceSales.Invoice?.Worker != null ?
                 new WorkerDTO(invoiceSales.Invoice.Worker)
@@ -21,7 +21,7 @@
         }
 
         public Guid InvoiceId { get; set; }
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
         public string? Number { get; set; }
         public WorkerDTO? Worker { get; set; }
         public DivisionDTO? Division { get; set; }

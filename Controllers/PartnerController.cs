@@ -1,6 +1,7 @@
 ﻿namespace logistics_system_back.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
     using Abstractions;
     using Models;
 
@@ -23,18 +24,21 @@
             return Ok(_partnerService.GetPartners());
         }
 
+        [Authorize]
         [HttpGet("partners/{id}")]
         public IActionResult GetPartner(Guid id)
         {
             return Ok(_partnerService.GetPartner(id));
         }
 
+        [Authorize]
         [HttpPut("partners")]
         public void UpdatePartner([FromQuery] Partner partner)
         {
             _partnerService.UpdatePartner(partner);
         }
 
+        [Authorize]
         [HttpPost("partners")]
         public void AddPartner([FromQuery] Partner partner)
         {

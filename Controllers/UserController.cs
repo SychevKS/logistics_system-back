@@ -43,7 +43,17 @@
                     );
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            return Json(encodedJwt);
+            var response = new
+            {
+                token = encodedJwt,
+                name = login,
+                roles = identity.Claims
+                       .Where(c => c.Type == ClaimTypes.Role)
+                       .Select(c => c.Value)
+                       .ToList()
+            };
+
+            return Json(response);
         }
 
         private ClaimsIdentity? GetIdentity(string login, string password)

@@ -26,11 +26,5 @@
         /// <returns></returns>
         void AddRealization(InvoicePosition invoicePosition);
 
-        /// <summary>
-        /// Получение последней реализации товара по плану
-        /// </summary>
-        /// <returns></returns>
-        int? GetLastRealization(Guid planId, Guid productId);
-
     }
 }

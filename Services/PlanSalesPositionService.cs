@@ -27,7 +27,16 @@
                 .Include(x => x.Product)
                 .ThenInclude(x => x.Unit)
                 .Where(x => x.PlanSales.Id == salesPlanId)
-                .Select(x => new PlanSalesPositionDTO(x));
+                .Select(x => new
+                {
+                    fields = x,
+                    realization = (int?)
+                        x.PlanSales.PlanSalesRealizations
+                            .Where(p => p.PlanSalesId == x.PlanSalesId && p.ProductId == x.ProductId)
+                            .OrderByDescending(p => p.Date)
+                            .FirstOrDefault().Quantity
+                }) 
+                .Select(x => new PlanSalesPositionDTO(x.fields, x.realization));
         }
 
         /// <inheritdoc/>
@@ -42,8 +51,8 @@
 
         public void AddRealization(InvoicePosition invoicePosition)
         {
-            PlanSales planSales = _planSalesService.GetCurrentPlan(
-                invoicePosition.Invoice.Date);
+            PlanSales? planSales = _planSalesService.GetCurrentPlan(
+                invoicePosition.InvoiceId);
 
             bool isNoPisition = _db.PlanSalesPositions
                 .Any(x => x.ProductId == invoicePosition.ProductId);
@@ -70,15 +79,6 @@
                 _db.PlanSalesRealizations.Add(lastRealization);
                 _db.SaveChanges();
             }
-
-        }
-
-        public int? GetLastRealization(Guid planId, Guid productId)
-        {
-            return _db.PlanSalesRealizations
-                .Where(p => p.PlanSalesId == planId && p.ProductId == productId)
-                .OrderByDescending(x => x.Date)
-                .FirstOrDefault()?.Quantity;
 
         }
 

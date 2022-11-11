@@ -24,7 +24,7 @@
         /// Получение текущего плана закупок
         /// </summary>
         /// <returns></returns>
-        PlanPurchases GetCurrentPlan(DateTime date);
+        PlanPurchases GetCurrentPlan(Guid invoiceId);
 
         /// <summary>
         /// Добавление плана закупок

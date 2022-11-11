@@ -1,6 +1,7 @@
 ﻿namespace logistics_system_back.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
     using Abstractions;
     using Models;
 
@@ -17,12 +18,14 @@
             _position = position;
         }
 
-        [HttpGet("purchases-plan/{id}/positions")]
+        [Authorize]
+        [HttpGet("purchases-plans/{id}/positions")]
         public IActionResult GetSalesPlanPositions(Guid id)
         {
             return Ok(_position.GetPositions(id));
         }
 
+        [Authorize]
         [HttpPost("purchases-plan-positions")]
         public void AddPositions([FromQuery] PlanPurchasesPosition[] positions)
         {

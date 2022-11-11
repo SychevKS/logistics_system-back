@@ -1,6 +1,7 @@
 ﻿namespace logistics_system_back.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
     using Abstractions;
     using Models;
 
@@ -17,19 +18,22 @@
             _salesInvoiceController = salesInvoiceController;
         }
 
-        [HttpGet("sales-invoices")]
+        [Authorize]
+        [HttpGet("sale-invoices")]
         public IActionResult GetInvoiceSales()
         {
             return Ok(_salesInvoiceController.GetInvoiceSales());
         }
 
-        [HttpGet("sales-invoices/{id}")]
+        [Authorize]
+        [HttpGet("sale-invoices/{id}")]
         public IActionResult GetInvoiceSale(Guid id)
         {
             return Ok(_salesInvoiceController.GetInvoiceSale(id));
         }
 
-        [HttpPost("sales-invoices")]
+        [Authorize]
+        [HttpPost("sale-invoices")]
         public void AddInvoiceSale([FromQuery] Invoice invoice, [FromQuery] InvoiceSale salesInvoice)
         {
             _salesInvoiceController.AddInvoiceSale(invoice, salesInvoice);

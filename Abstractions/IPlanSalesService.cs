@@ -24,7 +24,7 @@
         /// Получение текущего плана продаж
         /// </summary>
         /// <returns></returns>
-        PlanSales GetCurrentPlan(DateTime date);
+        PlanSales GetCurrentPlan(Guid invoiceId);
 
         /// <summary>
         /// Добавление плана продаж

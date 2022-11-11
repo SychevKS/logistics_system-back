@@ -5,14 +5,7 @@
 
     public class PlanPurchasesPositionDTO
     {
-        private readonly IPlanPurchasesPositionService _planPurchasesPositionService;
-
-        public PlanPurchasesPositionDTO(IPlanPurchasesPositionService planPurchasesPositionService)
-        {
-            _planPurchasesPositionService = planPurchasesPositionService;
-        }
-
-        public PlanPurchasesPositionDTO(PlanPurchasesPosition position)
+        public PlanPurchasesPositionDTO(PlanPurchasesPosition position, int? realization)
         {
             Id = position.Product.Id;
             Name = position.Product.Name;
@@ -23,8 +16,7 @@
                 ? new DivisionDTO(position.Division)
                 : null;
             Purpose = position.Quantity;
-            Realization = _planPurchasesPositionService
-                .GetLastRealization(position.PlanPurchasesId, position.ProductId);
+            Realization = realization;
         }
 
         public Guid Id { get; set; }

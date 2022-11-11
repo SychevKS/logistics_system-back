@@ -7,7 +7,7 @@
         public InvoicePurchaseDTO(InvoicePurchase invoicePurchase)
         {
             InvoiceId = invoicePurchase.InvoiceId;
-            Date = invoicePurchase.Invoice?.Date;
+            Date = invoicePurchase.Invoice.Date;
             Number = invoicePurchase.Invoice?.Number;
             Worker = invoicePurchase.Invoice.Worker != null ? new WorkerDTO(invoicePurchase.Invoice.Worker) : null;
             Division = invoicePurchase.Division != null ? new DivisionDTO(invoicePurchase.Division) : null;
@@ -15,7 +15,7 @@
         }
 
         public Guid InvoiceId { get; set; }
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
         public string? Number { get; set; }
         public WorkerDTO? Worker { get; set; }
         public DivisionDTO? Division { get; set; }

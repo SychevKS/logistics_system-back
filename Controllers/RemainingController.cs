@@ -1,6 +1,7 @@
 ﻿namespace logistics_system_back.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
     using Abstractions;
     using Models;
 
@@ -17,12 +18,14 @@
             _remainingService = remainingService;
         }
 
+        [Authorize]
         [HttpGet("remainings/{id}")]
         public IActionResult GetRemainings(Guid id)
         {
             return Ok(_remainingService.GetRemainings(id));
         }
 
+        [Authorize]
         [HttpGet("remainings")]
         public IActionResult GetRemainings()
         {

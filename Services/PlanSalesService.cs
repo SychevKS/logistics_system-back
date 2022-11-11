@@ -8,10 +8,14 @@
     public class PlanSalesService : IPlanSalesService
     {
         private readonly ApplicationContext _db;
+        private readonly IInvoiceSaleService _invoiceSaleService;
 
-        public PlanSalesService(ApplicationContext context)
+        public PlanSalesService(
+            ApplicationContext context,
+            IInvoiceSaleService invoiceSaleService)
         {
             _db = context;
+            _invoiceSaleService = invoiceSaleService;
         }
 
         /// <inheritdoc/>
@@ -27,8 +31,10 @@
         }
 
         /// <inheritdoc/>
-        public PlanSales GetCurrentPlan(DateTime date)
+        public PlanSales GetCurrentPlan(Guid invoiceId)
         {
+            DateTime date = _invoiceSaleService.GetInvoiceSale(invoiceId).Date;
+
             return _db.PlansSales
                 .Where(x => x.Year == date.Year)
                 .First();

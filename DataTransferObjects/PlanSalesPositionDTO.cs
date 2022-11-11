@@ -6,14 +6,7 @@
 
     public class PlanSalesPositionDTO
     {
-        private readonly IPlanSalesPositionService _planSalesPositionService;
-
-        public PlanSalesPositionDTO(IPlanSalesPositionService planSalesPositionService)
-        {
-            _planSalesPositionService = planSalesPositionService;
-        }
-
-        public PlanSalesPositionDTO(PlanSalesPosition position)
+        public PlanSalesPositionDTO(PlanSalesPosition position, int? realization)
         {
             Id = position.Product.Id;
             Name = position.Product.Name;
@@ -21,8 +14,7 @@
                 ? new UnitDTO(position.Product.Unit) 
                 : null;
             Purpose = position.Quantity;
-            Realization = _planSalesPositionService
-                .GetLastRealization(position.PlanSalesId, position.ProductId);
+            Realization = realization;
         }
 
         public Guid Id { get; set; }

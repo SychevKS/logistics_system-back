@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Abstractions;
     using Models;
+    using Microsoft.AspNetCore.Authorization;
 
     /// <summary>
     /// Контролер работников
@@ -17,24 +18,28 @@
             _workerService = workerService;
         }
 
+        [Authorize]
         [HttpGet("workers")] 
         public IActionResult GetWorkers()
         {
             return Ok(_workerService.GetWorkers());
         }
 
+        [Authorize]
         [HttpPatch("workers/{id}")] 
         public IActionResult GetWorker(Guid id)
         {
             return Ok(_workerService.GetWorker(id));
         }
 
+        [Authorize]
         [HttpPut("workers")]
         public void UpdateWorker([FromQuery] Worker worker)
         {
             _workerService.UpdateWorker(worker);
         }
 
+        [Authorize]
         [HttpPost("workers")]
         public void AddWorker([FromQuery] Worker worker)
         {
