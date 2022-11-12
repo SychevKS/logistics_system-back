@@ -32,5 +32,10 @@
         /// <param name="worker"></param>
         void AddWorker(Worker worker);
 
+        /// <summary>
+        /// Удаление сотрудника
+        /// </summary>
+        void RemoveWorker(Guid workerId);
+
     }
 }

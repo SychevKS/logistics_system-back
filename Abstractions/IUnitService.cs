@@ -32,5 +32,11 @@
         /// <returns></returns>
         void AddUnit(Unit unit);
 
+        /// <summary>
+        /// Удаление ед. измерения
+        /// </summary>
+        /// <returns></returns>
+        void RemoveUnit(Guid unitId);
+
     }
 }

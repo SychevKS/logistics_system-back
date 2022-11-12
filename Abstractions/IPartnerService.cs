@@ -32,5 +32,10 @@
         /// <param name="partner"></param>
         void AddPartner(Partner partner);
 
+        /// <summary>
+        /// Удаление партнера
+        /// </summary>
+        void RemovePartner(Guid partnerId);
+
     }
 }

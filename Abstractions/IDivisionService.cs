@@ -32,5 +32,10 @@
         /// <param name="division"></param>
         void AddDivision(Division division);
 
+        /// <summary>
+        /// Удаление подразделения
+        /// </summary>
+        void RemoveDivision(Guid divisionId);
+
     }
 }

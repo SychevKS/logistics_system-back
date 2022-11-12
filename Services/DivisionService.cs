@@ -41,5 +41,13 @@
             _db.Divisions.Add(division);
             _db.SaveChanges();
         }
+
+        public void RemoveDivision(Guid divisionId)
+        {
+            Division division = _db.Divisions.First(x => x.Id == divisionId);
+            _db.Divisions.Remove(division);
+            _db.SaveChanges();
+        }
+
     }
 }

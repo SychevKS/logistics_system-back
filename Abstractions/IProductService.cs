@@ -32,5 +32,10 @@
         /// <param name="product"></param>
         void AddProduct(Product product);
 
+        /// <summary>
+        /// Удаление товара
+        /// </summary>
+        void RemoveProduct(Guid productId);
+
     }
 }
