@@ -41,5 +41,13 @@
             _db.Units.Add(unit);
             _db.SaveChanges();
         }
+
+        public void RemoveUnit(Guid unitId)
+        {
+            Unit unit = _db.Units.Where(x => x.Id == unitId).First();
+            _db.Units.Remove(unit);
+            _db.SaveChanges();
+        }
+
     }
 }

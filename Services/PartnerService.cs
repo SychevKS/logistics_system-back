@@ -41,5 +41,12 @@
             _db.Partners.Add(partner);
             _db.SaveChanges();
         }
+
+        public void RemovePartner(Guid partnerId)
+        {
+            Partner partner = _db.Partners.Where(x => x.Id == partnerId).First();
+            _db.Partners.Remove(partner);
+            _db.SaveChanges();
+        }
     }
 }

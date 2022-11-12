@@ -40,5 +40,12 @@
             _db.Workers.Update(worker);
             _db.SaveChanges();
         }
+
+        public void RemoveWorker(Guid workerId)
+        {
+            Worker worker = _db.Workers.First(x => x.Id == workerId);
+            _db.Workers.Remove(worker);
+            _db.SaveChanges();
+        }
     }
 }

@@ -45,6 +45,14 @@
             _db.Products.Add(product);
             _db.SaveChanges();
         }
+
+        public void RemoveProduct(Guid productId)
+        {
+            Product product = _db.Products.Where(x => x.Id == productId).First();
+            _db.Products.Remove(product);
+            _db.SaveChanges();
+        }
+
     }
 
 }
