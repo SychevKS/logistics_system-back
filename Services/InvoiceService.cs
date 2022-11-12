@@ -1,8 +1,9 @@
 ﻿namespace logistics_system_back.Services
 {
     using Models;
+    using Abstractions;
 
-    public class InvoiceService
+    public class InvoiceService : IInvoiceService
     {
         private readonly ApplicationContext _db;
 

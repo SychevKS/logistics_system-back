@@ -4,7 +4,7 @@
     using Models;
 
     /// <summary>
-    /// Интерфейс сервиса работы с позициями накладных
+    /// Интерфейс сервиса работы с накладными
     /// </summary>
     public interface IInvoiceService
     {

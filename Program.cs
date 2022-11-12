@@ -35,6 +35,7 @@ builder.Services.AddTransient<IPlanPurchasesPositionService, PlanPurchasesPositi
 builder.Services.AddTransient<IUnitService, UnitService>();
 builder.Services.AddTransient<IRemainingService, RemainingService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IInvoiceService, InvoiceService>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
