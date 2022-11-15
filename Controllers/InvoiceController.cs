@@ -20,7 +20,7 @@
 
         [Authorize]
         [HttpDelete("invoices")]
-        public void AddInvoicePurchase(Guid invoiceId)
+        public void RemoveInvoice(Guid invoiceId)
         {
             _invoiceService.RemoveInvoice(invoiceId);
         }

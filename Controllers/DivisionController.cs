@@ -46,5 +46,12 @@
             _divisionService.AddDivision(division);
         }
 
+        [Authorize]
+        [HttpDelete("divisions")]
+        public void RemoveDivision(Guid divisionId)
+        {
+            _divisionService.RemoveDivision(divisionId);
+        }
+
     }
 }

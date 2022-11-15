@@ -46,5 +46,11 @@
             _productService.AddProduct(product);
         }
 
+        [Authorize]
+        [HttpDelete("products")]
+        public void RemoveProduct(Guid productId)
+        {
+            _productService.RemoveProduct(productId);
+        }
     }
 }

@@ -26,7 +26,7 @@
         }
 
         [Authorize]
-        [HttpPatch("workers/{id}")] 
+        [HttpGet("workers/{id}")] 
         public IActionResult GetWorker(Guid id)
         {
             return Ok(_workerService.GetWorker(id));
@@ -44,7 +44,14 @@
         public void AddWorker([FromQuery] Worker worker)
         {
             _workerService.AddWorker(worker);
-        } 
+        }
+
+        [Authorize]
+        [HttpDelete("workers")]
+        public void RemoveWorker(Guid workerId)
+        {
+            _workerService.RemoveWorker(workerId);
+        }
 
     }
 }

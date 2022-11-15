@@ -45,5 +45,12 @@
             _partnerService.AddPartner(partner);
         }
 
+        [Authorize]
+        [HttpDelete("partners")]
+        public void RemovePartner(Guid partnerId)
+        {
+            _partnerService.RemovePartner(partnerId);
+        }
+
     }
 }

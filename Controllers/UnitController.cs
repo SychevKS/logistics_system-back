@@ -47,5 +47,12 @@
             _unitService.AddUnit(unit);
         }
 
+        [Authorize]
+        [HttpDelete("units")]
+        public void RemoveUnit(Guid unitId)
+        {
+            _unitService.RemoveUnit(unitId);
+        }
+
     }
 }
