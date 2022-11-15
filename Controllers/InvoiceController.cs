@@ -25,5 +25,33 @@
             _invoiceService.RemoveInvoice(invoiceId);
         }
 
+        [Authorize]
+        [HttpGet("invoice/{id}/positions")]
+        public IActionResult GetInvoicePositions(Guid id)
+        {
+            return Ok(_invoiceService.GetInvoicePositions(id));
+        }
+
+        [Authorize]
+        [HttpPost("purchases-positions")]
+        public void AddPurchasesPositions([FromQuery] InvoicePosition[] positions)
+        {
+            _invoiceService.AddPurchasesPositions(positions);
+        }
+
+        [Authorize]
+        [HttpPost("sales-positions")]
+        public void AddSalesPositions([FromQuery] InvoicePosition[] positions)
+        {
+            _invoiceService.AddSalesPositions(positions);
+        }
+
+        [Authorize]
+        [HttpPost("transfers-positions")]
+        public void AddTransferPositions([FromQuery] InvoicePosition[] positions)
+        {
+            _invoiceService.AddTransferPositions(positions);
+        }
+
     }
 }

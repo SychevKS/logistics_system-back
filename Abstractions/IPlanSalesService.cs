@@ -31,5 +31,23 @@
         /// </summary>
         /// <param name="planSales"></param>
         void AddPlan(PlanSales planSales);
+
+        /// <summary>
+        /// Получение списка позиций плана продаж
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<PlanSalesPositionDTO> GetPositions(Guid salesPlanId);
+
+        /// <summary>
+        /// Добавление позиций плана продаж
+        /// </summary>
+        /// <returns></returns>
+        void AddPositions(PlanSalesPosition[] salesPlanPositions);
+
+        /// <summary>
+        /// Добавление позиции реализации плана продаж
+        /// </summary>
+        /// <returns></returns>
+        void AddRealization(InvoicePosition invoicePosition);
     }
 }

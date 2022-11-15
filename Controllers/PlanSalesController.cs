@@ -12,31 +12,45 @@
     [Route("api/")]
     public class PlanSalesController : Controller
     {
-        private readonly IPlanSalesService _plan;
+        private readonly IPlanSalesService _planService;
         public PlanSalesController(IPlanSalesService plan)
         {
-            _plan = plan;
+            _planService = plan;
         }
 
         [Authorize]
         [HttpGet("sales-plans")]
         public IActionResult GetSalesPlans()
         {
-            return Ok(_plan.GetPlans());
+            return Ok(_planService.GetPlans());
         }
 
         [Authorize]
         [HttpGet("sales-plans/{id}")]
         public IActionResult GetSalesPlan(Guid id)
         {
-            return Ok(_plan.GetPlan(id));
+            return Ok(_planService.GetPlan(id));
         }
 
         [Authorize]
         [HttpPost("sales-plans")]
         public void AddSalesPlan([FromQuery] PlanSales planSales)
         {
-            _plan.AddPlan(planSales);
+            _planService.AddPlan(planSales);
+        }
+
+        [Authorize]
+        [HttpGet("sales-plans/{id}/positions")]
+        public IActionResult GetSalesPlanPositions(Guid id)
+        {
+            return Ok(_planService.GetPositions(id));
+        }
+
+        [Authorize]
+        [HttpPost("sales-plans-positions")]
+        public void AddPositions([FromQuery] PlanSalesPosition[] positions)
+        {
+            _planService.AddPositions(positions);
         }
 
     }
