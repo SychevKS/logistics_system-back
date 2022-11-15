@@ -33,6 +33,12 @@
         void AddPlan(PlanPurchases planPurchases);
 
         /// <summary>
+        /// Удаление плана закупок
+        /// </summary>
+        /// <param name="planId"></param>
+        void RemovePlan(Guid planId);
+
+        /// <summary>
         /// Получение списка позиций плана закупок
         /// </summary>
         /// <returns></returns>

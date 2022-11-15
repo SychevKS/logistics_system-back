@@ -33,6 +33,12 @@
         void AddPlan(PlanSales planSales);
 
         /// <summary>
+        /// Удаление плана продаж
+        /// </summary>
+        /// <param name="planId"></param>
+        void RemovePlan(Guid planId);
+
+        /// <summary>
         /// Получение списка позиций плана продаж
         /// </summary>
         /// <returns></returns>

@@ -40,6 +40,13 @@
         }
 
         [Authorize]
+        [HttpDelete("sales-plans")]
+        public void RemovePlan(Guid planId)
+        {
+            _planService.RemovePlan(planId);
+        }
+
+        [Authorize]
         [HttpGet("sales-plans/{id}/positions")]
         public IActionResult GetSalesPlanPositions(Guid id)
         {

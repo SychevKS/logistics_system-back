@@ -57,6 +57,13 @@
         }
 
         /// <inheritdoc/>
+        public void RemovePlan(Guid planId)
+        {
+            _db.PlansPurchases.Remove(_db.PlansPurchases.Where(x => x.Id == planId).First());
+            _db.SaveChanges();
+        }
+
+        /// <inheritdoc/>
         public IEnumerable<PlanPurchasesPositionDTO> GetPositions(Guid purchasesPlanId)
         {
             return _db.PlanPurchasesPositions
