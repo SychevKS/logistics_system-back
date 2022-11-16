@@ -13,9 +13,11 @@
     public class DivisionController : Controller
     {
         private readonly IDivisionService _divisionService;
-        public DivisionController(IDivisionService amendmentService)
+        private readonly ILogService _logService;
+        public DivisionController(IDivisionService amendmentService, ILogService logService)
         {
             _divisionService = amendmentService;
+            _logService = logService;
         }
 
         [Authorize]
@@ -37,6 +39,7 @@
         public void UpdateDivision([FromQuery] Division division)
         {
             _divisionService.UpdateDivision(division);
+            _logService.AddWrite($"Обновление подразделения, {division.Id}.", HttpContext.User.Identity.Name);
         }
 
         [Authorize]
@@ -44,6 +47,7 @@
         public void AddDivision([FromQuery] Division division)
         {
             _divisionService.AddDivision(division);
+            _logService.AddWrite($"Добавление подразделения, {division.Id}.", HttpContext.User.Identity.Name);
         }
 
         [Authorize]
@@ -51,6 +55,7 @@
         public void RemoveDivision(Guid divisionId)
         {
             _divisionService.RemoveDivision(divisionId);
+            _logService.AddWrite($"Удаление подразделения, {divisionId}.", HttpContext.User.Identity.Name);
         }
 
     }

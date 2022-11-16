@@ -13,9 +13,11 @@
     public class InvoiceController : Controller
     {
         private readonly IInvoiceService _invoiceService;
-        public InvoiceController(IInvoiceService invoiceService)
+        private readonly ILogService _logService;
+        public InvoiceController(IInvoiceService invoiceService, ILogService logService)
         {
             _invoiceService = invoiceService;
+            _logService = logService;
         }
 
         [Authorize]
@@ -23,6 +25,7 @@
         public void RemoveInvoice(Guid invoiceId)
         {
             _invoiceService.RemoveInvoice(invoiceId);
+            _logService.AddWrite($"Удаление накладной, {invoiceId}.", HttpContext.User.Identity.Name);
         }
 
         [Authorize]

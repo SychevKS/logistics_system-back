@@ -13,9 +13,11 @@
     public class InvoiceTransferController : Controller
     {
         private readonly ITransferInvoiceService _transferInvoiceService;
-        public InvoiceTransferController(ITransferInvoiceService transferInvoiceService)
+        private readonly ILogService _logService;
+        public InvoiceTransferController(ITransferInvoiceService transferInvoiceService, ILogService logService)
         {
             _transferInvoiceService = transferInvoiceService;
+            _logService = logService;
         }
 
         [Authorize]
@@ -37,6 +39,7 @@
         public void AddInvoiceTransfer([FromQuery] Invoice invoice, [FromQuery] InvoiceTransfer invoiceTransfer)
         {
             _transferInvoiceService.AddInvoiceTransfer(invoice, invoiceTransfer);
+            _logService.AddWrite($"Добавление приходно-расходной накладной, {invoice.Id}.", HttpContext.User.Identity.Name);
         }
 
     }

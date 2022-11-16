@@ -13,9 +13,11 @@
     public class InvoiceSalesController : Controller
     {
         private readonly IInvoiceSaleService _salesInvoiceController;
-        public InvoiceSalesController(IInvoiceSaleService salesInvoiceController)
+        private readonly ILogService _logService;
+        public InvoiceSalesController(IInvoiceSaleService salesInvoiceController, ILogService logService)
         {
             _salesInvoiceController = salesInvoiceController;
+            _logService = logService;
         }
 
         [Authorize]
@@ -37,6 +39,7 @@
         public void AddInvoiceSale([FromQuery] Invoice invoice, [FromQuery] InvoiceSale salesInvoice)
         {
             _salesInvoiceController.AddInvoiceSale(invoice, salesInvoice);
+            _logService.AddWrite($"Добавление расходной накладной, {invoice.Id}.", HttpContext.User.Identity.Name);
         }
 
     }

@@ -14,9 +14,11 @@
     public class UnitController : Controller
     {
         private readonly IUnitService _unitService;
-        public UnitController(IUnitService unitService)
+        private readonly ILogService _logService;
+        public UnitController(IUnitService unitService, ILogService logService)
         {
             _unitService = unitService;
+            _logService = logService;
         }
 
         [Authorize]
@@ -38,6 +40,7 @@
         public void UpdateUnit([FromQuery] Unit unit)
         {
             _unitService.UpdateUnit(unit);
+            _logService.AddWrite($"Обновление еденицы измерения, {unit.Id}.", HttpContext.User.Identity.Name);
         }
 
         [Authorize]
@@ -45,6 +48,7 @@
         public void AddUnit([FromQuery] Unit unit)
         {
             _unitService.AddUnit(unit);
+            _logService.AddWrite($"Добавление еденицы измерения, {unit.Id}.", HttpContext.User.Identity.Name);
         }
 
         [Authorize]
@@ -52,6 +56,7 @@
         public void RemoveUnit(Guid unitId)
         {
             _unitService.RemoveUnit(unitId);
+            _logService.AddWrite($"Удаление еденицы измерения, {unitId}.", HttpContext.User.Identity.Name);
         }
 
     }

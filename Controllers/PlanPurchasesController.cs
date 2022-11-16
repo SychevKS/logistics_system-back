@@ -13,9 +13,11 @@
     public class PlanPurchasesController : Controller
     {
         private readonly IPlanPurchasesService _planService;
-        public PlanPurchasesController(IPlanPurchasesService planPurchasesService)
+        private readonly ILogService _logService;
+        public PlanPurchasesController(IPlanPurchasesService planPurchasesService, ILogService logService)
         {
             _planService = planPurchasesService;
+            _logService = logService;
         }
 
         [Authorize]
@@ -37,6 +39,7 @@
         public void AddPurchasesPlan([FromQuery] PlanPurchases purchasesPlan)
         {
             _planService.AddPlan(purchasesPlan);
+            _logService.AddWrite($"Добавление плана закупок, {purchasesPlan.Id}.", HttpContext.User.Identity.Name);
         }
 
         [Authorize]
@@ -44,6 +47,7 @@
         public void RemovePlan(Guid planId)
         {
             _planService.RemovePlan(planId);
+            _logService.AddWrite($"Удаление плана закупок, {planId}.", HttpContext.User.Identity.Name);
         }
 
         [Authorize]

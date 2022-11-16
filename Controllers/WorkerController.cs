@@ -13,9 +13,11 @@
     public class WorkerController : Controller
     {
         private readonly IWorkerService _workerService;
-        public WorkerController(IWorkerService workerService)
+        private readonly ILogService _logService;
+        public WorkerController(IWorkerService workerService, ILogService logService)
         {
             _workerService = workerService;
+            _logService = logService;
         }
 
         [Authorize]
@@ -37,6 +39,7 @@
         public void UpdateWorker([FromQuery] Worker worker)
         {
             _workerService.UpdateWorker(worker);
+            _logService.AddWrite($"Обновление сотрудника, {worker.Id}.", HttpContext.User.Identity.Name);
         }
 
         [Authorize]
@@ -44,6 +47,7 @@
         public void AddWorker([FromQuery] Worker worker)
         {
             _workerService.AddWorker(worker);
+            _logService.AddWrite($"Добавление сотрудника, {worker.Id}.", HttpContext.User.Identity.Name);
         }
 
         [Authorize]
@@ -51,6 +55,7 @@
         public void RemoveWorker(Guid workerId)
         {
             _workerService.RemoveWorker(workerId);
+            _logService.AddWrite($"Удаление сотрудника, {workerId}.", HttpContext.User.Identity.Name);
         }
 
     }

@@ -13,9 +13,11 @@
     public class InvoicePurchaseController : Controller
     {
         private readonly IInvoicePurchaseService _purchaseInvoiceService;
-        public InvoicePurchaseController(IInvoicePurchaseService purchaseInvoiceService)
+        private readonly ILogService _logService;
+        public InvoicePurchaseController(IInvoicePurchaseService purchaseInvoiceService, ILogService logService)
         {
             _purchaseInvoiceService = purchaseInvoiceService;
+            _logService = logService;
         }
 
         [Authorize]
@@ -37,6 +39,7 @@
         public void AddInvoicePurchase([FromQuery] Invoice invoice, [FromQuery] InvoicePurchase purchaseInvoice)
         {
             _purchaseInvoiceService.AddInvoicePurchase(invoice, purchaseInvoice);
+            _logService.AddWrite($"Добавление приходной накладной, {invoice.Id}.", HttpContext.User.Identity.Name);
         }
 
     }

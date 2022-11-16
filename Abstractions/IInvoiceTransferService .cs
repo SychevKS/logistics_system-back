@@ -17,13 +17,11 @@
         /// <summary>
         /// Получение приходно-расходной
         /// </summary>
-        /// <returns></returns>
         InvoiceTransferDTO GetInvoiceTransfer(Guid invoiceId);
 
         /// <summary>
         /// Добавление приходно-расходной
         /// </summary>
-        /// <returns></returns>
         void AddInvoiceTransfer(Invoice invoice, InvoiceTransfer transferInvoice);
 
     }

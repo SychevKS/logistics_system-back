@@ -13,9 +13,11 @@
     public class PartnerController : Controller
     {
         private readonly IPartnerService _partnerService;
-        public PartnerController(IPartnerService partnerService)
+        private readonly ILogService _logService;
+        public PartnerController(IPartnerService partnerService, ILogService logService)
         {
             _partnerService = partnerService;
+            _logService = logService;
         }
 
         [HttpGet("partners")]
@@ -36,6 +38,7 @@
         public void UpdatePartner([FromQuery] Partner partner)
         {
             _partnerService.UpdatePartner(partner);
+            _logService.AddWrite($"Обновление контрагента, {partner.Id}.", HttpContext.User.Identity.Name);
         }
 
         [Authorize]
@@ -43,6 +46,7 @@
         public void AddPartner([FromQuery] Partner partner)
         {
             _partnerService.AddPartner(partner);
+            _logService.AddWrite($"Добавление контрагента, {partner.Id}.", HttpContext.User.Identity.Name);
         }
 
         [Authorize]
@@ -50,6 +54,7 @@
         public void RemovePartner(Guid partnerId)
         {
             _partnerService.RemovePartner(partnerId);
+            _logService.AddWrite($"Удаление контрагента, {partnerId}.", HttpContext.User.Identity.Name);
         }
 
     }
