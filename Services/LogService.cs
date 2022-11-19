@@ -26,5 +26,11 @@
             _db.Logs.Add(log);
             _db.SaveChanges();
         }
+
+        /// <inheritdoc/>
+        public IEnumerable<Log> GetLogs()
+        {
+            return _db.Logs;
+        }
     }
 }

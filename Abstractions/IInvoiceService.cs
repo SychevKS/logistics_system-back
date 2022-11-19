@@ -21,22 +21,28 @@
         IEnumerable<InvoicePositionDTO> GetInvoicePositions(Guid invoiceId);
 
         /// <summary>
-        /// Добавление позиций приходной накладной
+        /// Добавление позиций накладной
         /// </summary>
         /// <returns></returns>
-        void AddPurchasesPositions(InvoicePosition[] positions);
+        void AddPositions(InvoicePosition[] positions);
 
         /// <summary>
-        /// Добавление позиций расходной накладной
+        /// Получение выручки
         /// </summary>
         /// <returns></returns>
-        void AddSalesPositions(InvoicePosition[] positions);
+        int GetRevenue();
 
         /// <summary>
-        /// Добавление позиций акта приемки-передачи
+        /// Получение прибыли
         /// </summary>
         /// <returns></returns>
-        void AddTransferPositions(InvoicePosition[] positions);
+        int GetProfit();
+
+        /// <summary>
+        /// Получение затрат на доставку
+        /// </summary>
+        /// <returns></returns>
+        int GetShippingCosts();
 
     }
 }

@@ -3,7 +3,6 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
     using Abstractions;
-    using DataTransferObjects;
     using Models;
 
     /// <summary>

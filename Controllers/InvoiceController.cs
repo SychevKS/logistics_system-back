@@ -36,24 +36,21 @@
         }
 
         [Authorize]
-        [HttpPost("purchases-positions")]
+        [HttpPost("invoice/positions")]
         public void AddPurchasesPositions([FromQuery] InvoicePosition[] positions)
         {
-            _invoiceService.AddPurchasesPositions(positions);
+            _invoiceService.AddPositions(positions);
         }
 
         [Authorize]
-        [HttpPost("sales-positions")]
-        public void AddSalesPositions([FromQuery] InvoicePosition[] positions)
+        [HttpGet("statistics")]
+        public IActionResult GetStatistics()
         {
-            _invoiceService.AddSalesPositions(positions);
-        }
+            int revenue = _invoiceService.GetRevenue();
+            int shippingCosts = _invoiceService.GetShippingCosts();
+            int profit = _invoiceService.GetProfit();
 
-        [Authorize]
-        [HttpPost("transfers-positions")]
-        public void AddTransferPositions([FromQuery] InvoicePosition[] positions)
-        {
-            _invoiceService.AddTransferPositions(positions);
+            return Ok(new { revenue, shippingCosts, profit });
         }
 
     }

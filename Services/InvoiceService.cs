@@ -43,38 +43,48 @@
         }
 
         /// <inheritdoc/>
-        public void AddPurchasesPositions(InvoicePosition[] positions)
+        public void AddPositions(InvoicePosition[] positions)
         {
             foreach (InvoicePosition invoicePosition in positions)
             {
-                _remainingService.AddPurchasesRemains(invoicePosition);
-                _planPurchasesService.AddRealization(invoicePosition);
+                switch (invoicePosition.InvoiceKind)
+                {
+                    case tInvoiceKind.Purchase:
+                        _remainingService.AddPurchasesRemains(invoicePosition);
+                        _planPurchasesService.AddRealization(invoicePosition);
+                        break;
+                    case tInvoiceKind.Sale:
+                        _remainingService.AddSalesRemains(invoicePosition);
+                        _planSalesService.AddRealization(invoicePosition);
+                        break;
+                    case tInvoiceKind.Transfer:
+                        _remainingService.AddInOutRemains(invoicePosition);
+                        break;
+                }
                 _db.InvoicePositions.Add(invoicePosition);
             }
             _db.SaveChanges();
         }
 
-        /// <inheritdoc/>
-        public void AddSalesPositions(InvoicePosition[] positions)
+        public int GetRevenue()
         {
-            foreach (InvoicePosition invoicePosition in positions)
-            {
-                _remainingService.AddSalesRemains(invoicePosition);
-                _planSalesService.AddRealization(invoicePosition);
-                _db.InvoicePositions.Add(invoicePosition);
-            }
-            _db.SaveChanges();
+            return _db.InvoicePositions
+                .Where(x => x.InvoiceKind == tInvoiceKind.Sale)
+                .Sum(x => x.Price * x.Quantity);
         }
 
-        /// <inheritdoc/>
-        public void AddTransferPositions(InvoicePosition[] positions)
+        public int GetShippingCosts()
         {
-            foreach (InvoicePosition invoicePosition in positions)
-            {
-                _remainingService.AddInOutRemains(invoicePosition);
-                _db.InvoicePositions.Add(invoicePosition);
-            }
-            _db.SaveChanges();
+            return _db.InvoicePositions.Sum(x => x.CostDelivery);
+        }
+
+        public int GetProfit()
+        {
+            int coming = _db.InvoicePositions
+                .Where(x => x.InvoiceKind == tInvoiceKind.Purchase)
+                .Sum(x => x.Price * x.Quantity);
+
+            return GetRevenue() - coming - GetShippingCosts();
         }
     }
 }
